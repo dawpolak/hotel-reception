@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(600, 366);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormReception";
-            this.Text = "Hotel - Recepcja";
+            this.Text = "`";
             this.ResumeLayout(false);
 
         }
