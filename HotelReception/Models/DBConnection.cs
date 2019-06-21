@@ -7,9 +7,10 @@ using MySql.Data.MySqlClient;
 
 namespace HotelReception
 {
-    class DBConnection
+    public class DBConnection
     {
         private static DBConnection instance;
+        private static MySqlConnectionStringBuilder connStrBuilder;
         public static DBConnection Instance
         {
 
@@ -19,37 +20,25 @@ namespace HotelReception
             }
         }
 
-        private DBConnection() { }
-
-        public void ExecuteCommand(uint port, string server, string user, string password, string database)
+        private DBConnection()
         {
-            MySqlConnectionStringBuilder connStrB = new MySqlConnectionStringBuilder();
+            connStrBuilder = new MySqlConnectionStringBuilder();
+            connStrBuilder.Port = 3360;
+            connStrBuilder.Server = "localhost";
+            connStrBuilder.UserID = "root";
+            connStrBuilder.Password = "root";
+            connStrBuilder.Database = "hotel";
+        }
 
-            connStrB.Port = port;
-            connStrB.Server = server;
-            connStrB.UserID = user;
-            connStrB.Password = password;
-            connStrB.Database = database;
+        public void ExecuteQuery()
+        {
 
-
-            // int? x;
-
-            using (MySqlConnection conn = new MySqlConnection(connStrB.ToString()))
+            using (MySqlConnection conn = new MySqlConnection(connStrBuilder.ToString()))
             {
                 try
                 {
                     conn.Open();
-                    /*using (MySqlCommand command = new MySqlCommand("SELECT * FROM `users`", conn))
-                    {
-                        using (var dataReader = command.ExecuteReader())
-                        {
-                            while (dataReader.Read())
-                            {
-                                var x = dataReader["fname"];
-                                Console.WriteLine(x);
-                            }
-                        }
-                    }*/
+                    //Execute query here
                     conn.Close();
                 }
                 catch (Exception exc)

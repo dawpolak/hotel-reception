@@ -8,6 +8,8 @@ namespace HotelReception
 {
     class Model
     {
+        DBConnection database = DBConnection.Instance;
+
         //do modelu maja dostep oba formy, wiec jak pierwszy wrzuci dane z logowania tutaj to drugi moze na nich pracowac
         public bool SetDatabaseAccess()
         {
