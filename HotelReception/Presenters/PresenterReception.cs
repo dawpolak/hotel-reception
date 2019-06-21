@@ -14,6 +14,13 @@ namespace HotelReception
         {
             this.view = view;
             this.model = model;
+            this.view.GetInfo += View_GetInfo;
+        }
+
+        private void View_GetInfo()
+        {
+            view.UserName = model.UserName;
+            view.IfAdmin = model.Admin;
         }
     }
 }

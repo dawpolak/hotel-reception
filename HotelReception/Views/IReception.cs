@@ -8,5 +8,10 @@ namespace HotelReception
 {
     interface IReception
     {
+        string UserName { set; }
+        bool IfAdmin { set; get; }
+
+
+        event Action GetInfo;
     }
 }
