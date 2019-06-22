@@ -84,6 +84,12 @@
             this.buttonDeleteEmployee = new System.Windows.Forms.Button();
             this.buttonEditEmployee = new System.Windows.Forms.Button();
             this.buttonAddEmployee = new System.Windows.Forms.Button();
+            this.textBoxClientSecondName = new System.Windows.Forms.TextBox();
+            this.textBoxClientPhone = new System.Windows.Forms.TextBox();
+            this.textBoxClientFirstName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControlReception.SuspendLayout();
             this.tabPageRent.SuspendLayout();
             this.tabPageRooms.SuspendLayout();
@@ -107,6 +113,12 @@
             // 
             // tabPageRent
             // 
+            this.tabPageRent.Controls.Add(this.label3);
+            this.tabPageRent.Controls.Add(this.label2);
+            this.tabPageRent.Controls.Add(this.label1);
+            this.tabPageRent.Controls.Add(this.textBoxClientFirstName);
+            this.tabPageRent.Controls.Add(this.textBoxClientPhone);
+            this.tabPageRent.Controls.Add(this.textBoxClientSecondName);
             this.tabPageRent.Controls.Add(this.buttonDeleteRent);
             this.tabPageRent.Controls.Add(this.buttonEditRent);
             this.tabPageRent.Controls.Add(this.buttonAddRent);
@@ -131,7 +143,7 @@
             // 
             // buttonDeleteRent
             // 
-            this.buttonDeleteRent.Location = new System.Drawing.Point(180, 301);
+            this.buttonDeleteRent.Location = new System.Drawing.Point(180, 320);
             this.buttonDeleteRent.Name = "buttonDeleteRent";
             this.buttonDeleteRent.Size = new System.Drawing.Size(75, 23);
             this.buttonDeleteRent.TabIndex = 12;
@@ -140,7 +152,7 @@
             // 
             // buttonEditRent
             // 
-            this.buttonEditRent.Location = new System.Drawing.Point(100, 301);
+            this.buttonEditRent.Location = new System.Drawing.Point(100, 320);
             this.buttonEditRent.Name = "buttonEditRent";
             this.buttonEditRent.Size = new System.Drawing.Size(75, 23);
             this.buttonEditRent.TabIndex = 11;
@@ -149,7 +161,7 @@
             // 
             // buttonAddRent
             // 
-            this.buttonAddRent.Location = new System.Drawing.Point(22, 301);
+            this.buttonAddRent.Location = new System.Drawing.Point(22, 320);
             this.buttonAddRent.Name = "buttonAddRent";
             this.buttonAddRent.Size = new System.Drawing.Size(75, 23);
             this.buttonAddRent.TabIndex = 10;
@@ -159,7 +171,7 @@
             // labelRentPrice
             // 
             this.labelRentPrice.AutoSize = true;
-            this.labelRentPrice.Location = new System.Drawing.Point(24, 221);
+            this.labelRentPrice.Location = new System.Drawing.Point(24, 172);
             this.labelRentPrice.Name = "labelRentPrice";
             this.labelRentPrice.Size = new System.Drawing.Size(23, 17);
             this.labelRentPrice.TabIndex = 9;
@@ -168,7 +180,7 @@
             // labelRent5
             // 
             this.labelRent5.AutoSize = true;
-            this.labelRent5.Location = new System.Drawing.Point(24, 195);
+            this.labelRent5.Location = new System.Drawing.Point(24, 146);
             this.labelRent5.Name = "labelRent5";
             this.labelRent5.Size = new System.Drawing.Size(43, 17);
             this.labelRent5.TabIndex = 8;
@@ -177,7 +189,7 @@
             // labelRent4
             // 
             this.labelRent4.AutoSize = true;
-            this.labelRent4.Location = new System.Drawing.Point(24, 21);
+            this.labelRent4.Location = new System.Drawing.Point(24, 13);
             this.labelRent4.Name = "labelRent4";
             this.labelRent4.Size = new System.Drawing.Size(96, 17);
             this.labelRent4.TabIndex = 7;
@@ -186,7 +198,7 @@
             // comboBoxRent
             // 
             this.comboBoxRent.FormattingEnabled = true;
-            this.comboBoxRent.Location = new System.Drawing.Point(27, 41);
+            this.comboBoxRent.Location = new System.Drawing.Point(127, 10);
             this.comboBoxRent.Name = "comboBoxRent";
             this.comboBoxRent.Size = new System.Drawing.Size(121, 24);
             this.comboBoxRent.TabIndex = 6;
@@ -194,7 +206,7 @@
             // labelRent3
             // 
             this.labelRent3.AutoSize = true;
-            this.labelRent3.Location = new System.Drawing.Point(24, 135);
+            this.labelRent3.Location = new System.Drawing.Point(24, 92);
             this.labelRent3.Name = "labelRent3";
             this.labelRent3.Size = new System.Drawing.Size(92, 17);
             this.labelRent3.TabIndex = 5;
@@ -203,7 +215,7 @@
             // labelRent2
             // 
             this.labelRent2.AutoSize = true;
-            this.labelRent2.Location = new System.Drawing.Point(24, 81);
+            this.labelRent2.Location = new System.Drawing.Point(24, 38);
             this.labelRent2.Name = "labelRent2";
             this.labelRent2.Size = new System.Drawing.Size(103, 17);
             this.labelRent2.TabIndex = 4;
@@ -211,14 +223,14 @@
             // 
             // dateTimePickerRent2
             // 
-            this.dateTimePickerRent2.Location = new System.Drawing.Point(27, 155);
+            this.dateTimePickerRent2.Location = new System.Drawing.Point(27, 112);
             this.dateTimePickerRent2.Name = "dateTimePickerRent2";
             this.dateTimePickerRent2.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerRent2.TabIndex = 3;
             // 
             // dateTimePickerRent1
             // 
-            this.dateTimePickerRent1.Location = new System.Drawing.Point(27, 101);
+            this.dateTimePickerRent1.Location = new System.Drawing.Point(27, 58);
             this.dateTimePickerRent1.Name = "dateTimePickerRent1";
             this.dateTimePickerRent1.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerRent1.TabIndex = 2;
@@ -562,6 +574,54 @@
             this.buttonAddEmployee.Size = new System.Drawing.Size(75, 23);
             this.buttonAddEmployee.TabIndex = 0;
             // 
+            // textBoxClientSecondName
+            // 
+            this.textBoxClientSecondName.Location = new System.Drawing.Point(112, 236);
+            this.textBoxClientSecondName.Name = "textBoxClientSecondName";
+            this.textBoxClientSecondName.Size = new System.Drawing.Size(174, 22);
+            this.textBoxClientSecondName.TabIndex = 13;
+            // 
+            // textBoxClientPhone
+            // 
+            this.textBoxClientPhone.Location = new System.Drawing.Point(112, 272);
+            this.textBoxClientPhone.Name = "textBoxClientPhone";
+            this.textBoxClientPhone.Size = new System.Drawing.Size(174, 22);
+            this.textBoxClientPhone.TabIndex = 14;
+            // 
+            // textBoxClientFirstName
+            // 
+            this.textBoxClientFirstName.Location = new System.Drawing.Point(112, 205);
+            this.textBoxClientFirstName.Name = "textBoxClientFirstName";
+            this.textBoxClientFirstName.Size = new System.Drawing.Size(174, 22);
+            this.textBoxClientFirstName.TabIndex = 15;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(30, 208);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 17);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Imie";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 236);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 17);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Nazwisko";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(28, 272);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 17);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Numer tel";
+            // 
             // FormReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -649,5 +709,11 @@
         private System.Windows.Forms.Button buttonEditRoom;
         private System.Windows.Forms.Button buttonAddRoom;
         private System.Windows.Forms.Label labelCost;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxClientFirstName;
+        private System.Windows.Forms.TextBox textBoxClientPhone;
+        private System.Windows.Forms.TextBox textBoxClientSecondName;
     }
 }
