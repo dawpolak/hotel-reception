@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace HotelReception
 {
@@ -29,6 +30,7 @@ namespace HotelReception
             {
                 UserName = "Imie Nazwisko";
                 Admin = true;
+                database.ExecuteQuery();
                 return true;
             }
             else return false;
@@ -38,5 +40,16 @@ namespace HotelReception
         #region FormReception
 
         #endregion
+        private string HashPassword(string password)
+        {
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
+            StringBuilder hash = new StringBuilder();
+        
+            foreach (Byte b in passwordBytes)
+                hash.Append(b.ToString("x2"));
+
+            return hash.ToString();
+        }
     }
 }

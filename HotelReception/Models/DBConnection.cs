@@ -23,7 +23,7 @@ namespace HotelReception
         private DBConnection()
         {
             connStrBuilder = new MySqlConnectionStringBuilder();
-            connStrBuilder.Port = 3360;
+            connStrBuilder.Port = 3306;
             connStrBuilder.Server = "localhost";
             connStrBuilder.UserID = "root";
             connStrBuilder.Password = "root";
@@ -32,13 +32,12 @@ namespace HotelReception
 
         public void ExecuteQuery()
         {
-
             using (MySqlConnection conn = new MySqlConnection(connStrBuilder.ToString()))
             {
                 try
                 {
                     conn.Open();
-                    //Execute query here
+                    //execute query here
                     conn.Close();
                 }
                 catch (Exception exc)
