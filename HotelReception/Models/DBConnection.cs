@@ -10,7 +10,7 @@ namespace HotelReception
     public class DBConnection
     {
         private static DBConnection instance;
-        private static MySqlConnectionStringBuilder connStrBuilder;
+        private static MySqlConnection conn;
         public static DBConnection Instance
         {
 
@@ -19,21 +19,27 @@ namespace HotelReception
                 return instance ?? (instance = new DBConnection());
             }
         }
+        public bool IsConnected
+        {
+            get
+            {
+                return conn.Ping();
+            }
+        }
 
         private DBConnection()
         {
-            connStrBuilder = new MySqlConnectionStringBuilder();
+            MySqlConnectionStringBuilder connStrBuilder = new MySqlConnectionStringBuilder();
             connStrBuilder.Port = 3306;
             connStrBuilder.Server = "localhost";
             connStrBuilder.UserID = "root";
             connStrBuilder.Password = "root";
             connStrBuilder.Database = "hotel";
+            conn = new MySqlConnection(connStrBuilder.ToString());
         }
 
         public void ExecuteQuery()
         {
-            using (MySqlConnection conn = new MySqlConnection(connStrBuilder.ToString()))
-            {
                 try
                 {
                     conn.Open();
@@ -44,7 +50,6 @@ namespace HotelReception
                 {
                     Console.WriteLine(exc.Message);
                 }
-            }
         }
     }
 }
