@@ -68,10 +68,11 @@ namespace HotelReception
             //metoda ma zwracac wszystkich pracownikow 
             DataTable result = database.ExecuteQuery("SELECT * FROM worker");
         }
-        public void InsertRoom(int ileOsob,int ilePoje, int ilePodw,bool czyTaras, int koszt)
+        public void InsertRoom(int guests, int singleBeds, int doubleBeds, bool balcony, int cost)
         {
             //dodanie rooma 
-            
+            int result = database.ExecuteNonQuery($"INSERT INTO room (idroom, guests, singlebeds, doublebeds, balcony, occupied, cost)" +
+                                                  $" VALUES ({null}, {guests}, {singleBeds}, {doubleBeds}, {balcony}, {0}, {cost})");
         }
         public void UpdateRoom(int id,int ileOsob, int ilePoje, int ilePodw, bool czyTaras, int koszt)
         {
@@ -79,7 +80,7 @@ namespace HotelReception
         }
         public void DeleteRoom(int id)
         {
-
+            int result = database.ExecuteNonQuery($"DELETE FROM room WHERE idroom={id}");
         }
         public void InsertRent(DateTime start, DateTime end, int idRoom, int idWorker, string imie, string nazwisko, string tel)
         {
@@ -91,19 +92,20 @@ namespace HotelReception
         }
         public void DeleteRent(int id)
         {
-
+            //tych to raczej nie usuwamy tylko jakoś archiwizujemy
         }
-        public void InsertEmployee(string imie, string nazwisko, bool isAdmin, string phone, string login, string pass)
+        public void InsertEmployee(string firstname, string lastname, bool isAdmin, string phone, string login, string pass)
         {
-
+            int result = database.ExecuteNonQuery($"INSERT INTO worker (idworker, firstname, lastname, isadmin, phone, login, password)" +
+                                                  $" VALUES ({null}, {firstname}, {lastname}, {isAdmin}, {phone}, {login}, {HashPassword(pass)})");
         }
         public void UpdateEmployee(int id, string imie, string nazwisko, bool isAdmin, string phone, string login, string pass)
         {
-            //koszt sie zmieni w zaleznosci od cilosci dni
+
         }
         public void DeleteEmployee(int id)
         {
-
+            //tutaj też nie wiem czy nie lepiej archiwizować
         }
         #endregion
         private string HashPassword(string password)
