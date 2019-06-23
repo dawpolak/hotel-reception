@@ -37,7 +37,6 @@ namespace HotelReception
                 Console.WriteLine(database.IsConnected);
                 UserName = "Imie Nazwisko";
                 Admin = true;
-                database.ExecuteQuery();
                 return true;
             }
             else return false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace HotelReception
@@ -48,29 +49,45 @@ namespace HotelReception
             conn = new MySqlConnection(connStrBuilder.ToString());
         }
 
-        public void ExecuteQuery()
+        public DataTable ExecuteQuery(string sqlQuery)
         {
-                try
-                {
-                    conn.Open();
-                //execute query here
-                using (MySqlCommand command = new MySqlCommand("SELECT * FROM `worker`", conn))
-                {
-                    using (var dataReader = command.ExecuteReader())
-                    {
-                        while (dataReader.Read())
-                        {
-                            var x = dataReader["lastname"];
-                            Console.WriteLine(x);
-                        }
-                    }
-                }
+            DataTable data = new DataTable();
+            try
+            {
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlQuery, conn);
+                adapter.Fill(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
                 conn.Close();
-                }
-                catch (Exception exc)
+            }
+            return data;
+        }
+        public int ExecuteNonQuery(string sqlQuery)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn.Open();
+                using (MySqlCommand command = new MySqlCommand(sqlQuery, conn))
                 {
-                    Console.WriteLine(exc.Message);
+                    affectedRows = command.ExecuteNonQuery();
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return affectedRows;
         }
     }
 }
