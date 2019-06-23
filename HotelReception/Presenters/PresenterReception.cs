@@ -20,7 +20,7 @@ namespace HotelReception
         private void View_GetInfo()
         {
             view.UserName = model.UserName;
-            view.IfAdmin = model.Admin;
+            view.IfAdmin = model.IsAdmin;
         }
     }
 }

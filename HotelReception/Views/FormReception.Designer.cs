@@ -30,6 +30,12 @@
         {
             this.tabControlReception = new System.Windows.Forms.TabControl();
             this.tabPageRent = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxClientFirstName = new System.Windows.Forms.TextBox();
+            this.textBoxClientPhone = new System.Windows.Forms.TextBox();
+            this.textBoxClientSecondName = new System.Windows.Forms.TextBox();
             this.buttonDeleteRent = new System.Windows.Forms.Button();
             this.buttonEditRent = new System.Windows.Forms.Button();
             this.buttonAddRent = new System.Windows.Forms.Button();
@@ -84,12 +90,6 @@
             this.buttonDeleteEmployee = new System.Windows.Forms.Button();
             this.buttonEditEmployee = new System.Windows.Forms.Button();
             this.buttonAddEmployee = new System.Windows.Forms.Button();
-            this.textBoxClientSecondName = new System.Windows.Forms.TextBox();
-            this.textBoxClientPhone = new System.Windows.Forms.TextBox();
-            this.textBoxClientFirstName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabControlReception.SuspendLayout();
             this.tabPageRent.SuspendLayout();
             this.tabPageRooms.SuspendLayout();
@@ -140,6 +140,54 @@
             this.tabPageRent.TabIndex = 0;
             this.tabPageRent.Text = "Wynajem";
             this.tabPageRent.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(28, 272);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 17);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Numer tel";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(28, 236);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 17);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "Nazwisko";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(30, 208);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 17);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Imie";
+            // 
+            // textBoxClientFirstName
+            // 
+            this.textBoxClientFirstName.Location = new System.Drawing.Point(112, 205);
+            this.textBoxClientFirstName.Name = "textBoxClientFirstName";
+            this.textBoxClientFirstName.Size = new System.Drawing.Size(174, 22);
+            this.textBoxClientFirstName.TabIndex = 15;
+            // 
+            // textBoxClientPhone
+            // 
+            this.textBoxClientPhone.Location = new System.Drawing.Point(112, 272);
+            this.textBoxClientPhone.Name = "textBoxClientPhone";
+            this.textBoxClientPhone.Size = new System.Drawing.Size(174, 22);
+            this.textBoxClientPhone.TabIndex = 14;
+            // 
+            // textBoxClientSecondName
+            // 
+            this.textBoxClientSecondName.Location = new System.Drawing.Point(112, 236);
+            this.textBoxClientSecondName.Name = "textBoxClientSecondName";
+            this.textBoxClientSecondName.Size = new System.Drawing.Size(174, 22);
+            this.textBoxClientSecondName.TabIndex = 13;
             // 
             // buttonDeleteRent
             // 
@@ -574,54 +622,6 @@
             this.buttonAddEmployee.Size = new System.Drawing.Size(75, 23);
             this.buttonAddEmployee.TabIndex = 0;
             // 
-            // textBoxClientSecondName
-            // 
-            this.textBoxClientSecondName.Location = new System.Drawing.Point(112, 236);
-            this.textBoxClientSecondName.Name = "textBoxClientSecondName";
-            this.textBoxClientSecondName.Size = new System.Drawing.Size(174, 22);
-            this.textBoxClientSecondName.TabIndex = 13;
-            // 
-            // textBoxClientPhone
-            // 
-            this.textBoxClientPhone.Location = new System.Drawing.Point(112, 272);
-            this.textBoxClientPhone.Name = "textBoxClientPhone";
-            this.textBoxClientPhone.Size = new System.Drawing.Size(174, 22);
-            this.textBoxClientPhone.TabIndex = 14;
-            // 
-            // textBoxClientFirstName
-            // 
-            this.textBoxClientFirstName.Location = new System.Drawing.Point(112, 205);
-            this.textBoxClientFirstName.Name = "textBoxClientFirstName";
-            this.textBoxClientFirstName.Size = new System.Drawing.Size(174, 22);
-            this.textBoxClientFirstName.TabIndex = 15;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 208);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 17);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Imie";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 236);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 17);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Nazwisko";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 272);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 17);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Numer tel";
-            // 
             // FormReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -633,6 +633,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormReception";
             this.Text = "Hotel - Recpetion";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormReception_FormClosed);
             this.Load += new System.EventHandler(this.FormReception_Load);
             this.tabControlReception.ResumeLayout(false);
             this.tabPageRent.ResumeLayout(false);

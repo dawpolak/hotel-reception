@@ -33,6 +33,9 @@ namespace HotelReception
                 if (Access && CorrectUser)
                 {
                     this.Visible = false;
+                    reception.Update();
+                    reception.ResetText();
+                    reception.Refresh();
                     reception.ShowDialog();
                     textBoxLogin.Text = "";
                     textBoxPassword.Text = "";

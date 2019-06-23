@@ -345,16 +345,18 @@ namespace HotelReception
                 #endregion
 
 
-                this.tabPageEmployees.SuspendLayout();
-                this.tabPageRoomsAdmin.SuspendLayout();
+                //this.tabPageEmployees.SuspendLayout();
+                //this.tabPageRoomsAdmin.SuspendLayout();
 
                 this.tabControlReception.Controls.Add(this.tabPageEmployees);
                 this.tabControlReception.Controls.Add(this.tabPageRoomsAdmin);
 
-                this.tabPageEmployees.ResumeLayout(false);
-                this.tabPageEmployees.PerformLayout();
-                this.tabPageRoomsAdmin.ResumeLayout(false);
-                this.tabPageRoomsAdmin.PerformLayout();
+                //this.tabPageEmployees.ResumeLayout(false);
+                //this.tabPageEmployees.PerformLayout();
+                //this.tabPageRoomsAdmin.ResumeLayout(false);
+                //this.tabPageRoomsAdmin.PerformLayout();
+
+
             }
             else
             {
@@ -362,6 +364,11 @@ namespace HotelReception
                 buttonDeleteRent.Visible = false;
             }
 
+        }
+
+        private void FormReception_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //tabPageEmployees.Controls.Remove(tabPageEmployees);
         }
     }
 }

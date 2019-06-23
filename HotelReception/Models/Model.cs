@@ -12,7 +12,7 @@ namespace HotelReception
     {
         DBConnection database;
         public string UserName { get; set; }
-        public bool Admin { get; set; }
+        public bool IsAdmin { get; set; }
 
         //do modelu maja dostep oba formy, wiec jak pierwszy wrzuci dane z logowania tutaj to drugi moze na nich pracowac
         #region FormLogin
@@ -34,6 +34,12 @@ namespace HotelReception
             //tutaj trzeba zrobic selecta szukajacego loginu i sprawdic przypisane do niego haslo
             //sprawdzamy czy znalazlo login i czy haslo jest dobre (i zwracamy true/false)
             var result = database.ExecuteQuery($"SELECT * FROM worker WHERE login='{login}' AND password='{HashPassword(password)}'");
+            foreach (DataRowView row in result)
+            {
+                UserName=row["firstname"].ToString()+" "+ row["lastname"].ToString();
+                if (Int32.Parse(row["isadmin"].ToString()) == 1) IsAdmin = true; else IsAdmin = false;
+                
+            }
             return result.Count == 1;
             
         }
