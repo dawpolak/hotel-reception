@@ -56,14 +56,17 @@ namespace HotelReception
         public void SelectRooms()
         {
             //metoda ma zwraca wszystkie pokoje
+            DataTable result = database.ExecuteQuery("SELECT * FROM room");
         }
-        public void SelectRent()
+        public void SelectRental()
         {
             //zwraca wszsytkie wynajmy
+            DataTable result = database.ExecuteQuery("SELECT * FROM rental");
         }
         public void SelectEmployee()
         {
             //metoda ma zwracac wszystkich pracownikow 
+            DataTable result = database.ExecuteQuery("SELECT * FROM worker");
         }
         public void InsertRoom(int ileOsob,int ilePoje, int ilePodw,bool czyTaras, int koszt)
         {
