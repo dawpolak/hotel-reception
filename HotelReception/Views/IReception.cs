@@ -10,8 +10,9 @@ namespace HotelReception
     {
         string UserName { set; }
         bool IfAdmin { set; get; }
-
+        List<Employee> Employees { set; }
 
         event Action GetInfo;
+        event Action SelectEmployees;
     }
 }

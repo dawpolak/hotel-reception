@@ -110,6 +110,7 @@
             this.tabControlReception.SelectedIndex = 0;
             this.tabControlReception.Size = new System.Drawing.Size(768, 388);
             this.tabControlReception.TabIndex = 0;
+            this.tabControlReception.SelectedIndexChanged += new System.EventHandler(this.tabControlReception_SelectedIndexChanged);
             // 
             // tabPageRent
             // 

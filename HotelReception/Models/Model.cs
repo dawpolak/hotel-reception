@@ -13,6 +13,9 @@ namespace HotelReception
         DBConnection database;
         public string UserName { get; set; }
         public bool IsAdmin { get; set; }
+        List<Rent> rents = new List<Rent>();
+        List<Room> rooms = new List<Room>();
+        List<Employee> employees = new List<Employee>();
 
         //do modelu maja dostep oba formy, wiec jak pierwszy wrzuci dane z logowania tutaj to drugi moze na nich pracowac
         #region FormLogin
@@ -42,6 +45,18 @@ namespace HotelReception
             }
             return result.Count == 1;
             
+        }
+
+        private string HashPassword(string password)
+        {
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
+            StringBuilder hash = new StringBuilder();
+
+            foreach (Byte b in passwordBytes)
+                hash.Append(b.ToString("x2"));
+
+            return hash.ToString();
         }
         #endregion
 
@@ -75,10 +90,15 @@ namespace HotelReception
             //zwraca wszsytkie wynajmy
             var result = database.ExecuteQuery("SELECT * FROM rental");
         }
-        public void SelectEmployee()
+        public List<Employee> SelectEmployee()
         {
             //metoda ma zwracac wszystkich pracownikow 
             var result = database.ExecuteQuery("SELECT * FROM worker");
+            foreach (DataRowView row in result)
+            {
+                employees.Add(new Employee(row));
+            }
+            return employees;
         }
         public void InsertRoom(int guests, int singleBeds, int doubleBeds, bool balcony, int cost)
         {
@@ -120,16 +140,6 @@ namespace HotelReception
             //tutaj też nie wiem czy nie lepiej archiwizować
         }
         #endregion
-        private string HashPassword(string password)
-        {
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
-            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
-            StringBuilder hash = new StringBuilder();
         
-            foreach (Byte b in passwordBytes)
-                hash.Append(b.ToString("x2"));
-
-            return hash.ToString();
-        }
     }
 }

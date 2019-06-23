@@ -19,8 +19,16 @@ namespace HotelReception
 
         public string UserName { set => labelUserName.Text = "Jestes zalogowany jako: "+value; }
         public bool IfAdmin { get;  set; }
+        public List<Employee> Employees
+        {
+            set
+            {
+                listBox3.Items.AddRange(value.ToArray());
+            }
+        }
 
         public event Action GetInfo;
+        public event Action SelectEmployees;
 
         private void FormReception_Load(object sender, EventArgs e)
         {
@@ -377,6 +385,28 @@ namespace HotelReception
                 this.tabControlReception.Controls.RemoveAt(2);
             }
 
+        }
+
+        private void tabControlReception_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            if(tabControlReception.SelectedIndex == 0)
+            {
+                Console.WriteLine("pierwszy");
+            }
+            if (tabControlReception.SelectedIndex == 1)
+            {
+                Console.WriteLine("drugi");
+            }
+            if (tabControlReception.SelectedIndex == 2)
+            {
+                Console.WriteLine("trzeci");
+            }
+            if (tabControlReception.SelectedIndex == 3)
+            {
+                Console.WriteLine("czwarty");
+                SelectEmployees?.Invoke();
+            }
         }
     }
 }
