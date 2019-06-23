@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using System.Data;
 
 namespace HotelReception
 {
@@ -32,14 +33,8 @@ namespace HotelReception
 
             //tutaj trzeba zrobic selecta szukajacego loginu i sprawdic przypisane do niego haslo
             //sprawdzamy czy znalazlo login i czy haslo jest dobre (i zwracamy true/false)
-            if (login == "admin" && password == "admin")
-            {
-                Console.WriteLine(database.IsConnected);
-                UserName = "Imie Nazwisko";
-                Admin = true;
-                return true;
-            }
-            else return false;
+            DataTable result = database.ExecuteQuery($"SELECT * FROM worker WHERE login='{login}' AND password='{HashPassword(password)}'");
+            return result.Rows.Count == 1;
         }
         #endregion
 

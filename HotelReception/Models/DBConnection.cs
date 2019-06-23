@@ -55,7 +55,7 @@ namespace HotelReception
             try
             {
                 conn.Open();
-                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlQuery, conn);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(sqlQuery.Replace('\'', '"'), conn);
                 adapter.Fill(data);
             }
             catch (Exception e)
@@ -74,7 +74,7 @@ namespace HotelReception
             try
             {
                 conn.Open();
-                using (MySqlCommand command = new MySqlCommand(sqlQuery, conn))
+                using (MySqlCommand command = new MySqlCommand(sqlQuery.Replace('\'', '"'), conn))
                 {
                     affectedRows = command.ExecuteNonQuery();
                 }
