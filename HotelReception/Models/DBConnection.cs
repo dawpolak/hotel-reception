@@ -23,7 +23,17 @@ namespace HotelReception
         {
             get
             {
-                return conn.Ping();
+                try
+                {
+                    conn.Open();
+                    bool result = conn.Ping();
+                    conn.Close();
+                    return result;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
@@ -43,8 +53,19 @@ namespace HotelReception
                 try
                 {
                     conn.Open();
-                    //execute query here
-                    conn.Close();
+                //execute query here
+                using (MySqlCommand command = new MySqlCommand("SELECT * FROM `worker`", conn))
+                {
+                    using (var dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            var x = dataReader["lastname"];
+                            Console.WriteLine(x);
+                        }
+                    }
+                }
+                conn.Close();
                 }
                 catch (Exception exc)
                 {

@@ -28,6 +28,7 @@ namespace HotelReception
             //jesli sie udalo zwraca true
             if (login == "admin" && password == "admin")
             {
+                Console.WriteLine(database.IsConnected);
                 UserName = "Imie Nazwisko";
                 Admin = true;
                 database.ExecuteQuery();
