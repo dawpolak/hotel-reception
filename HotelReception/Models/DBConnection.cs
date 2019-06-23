@@ -49,7 +49,7 @@ namespace HotelReception
             conn = new MySqlConnection(connStrBuilder.ToString());
         }
 
-        public DataTable ExecuteQuery(string sqlQuery)
+        public DataView ExecuteQuery(string sqlQuery)
         {
             DataTable data = new DataTable();
             try
@@ -66,7 +66,7 @@ namespace HotelReception
             {
                 conn.Close();
             }
-            return data;
+            return data.AsDataView();
         }
         public int ExecuteNonQuery(string sqlQuery)
         {

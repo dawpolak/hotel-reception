@@ -33,8 +33,9 @@ namespace HotelReception
 
             //tutaj trzeba zrobic selecta szukajacego loginu i sprawdic przypisane do niego haslo
             //sprawdzamy czy znalazlo login i czy haslo jest dobre (i zwracamy true/false)
-            DataTable result = database.ExecuteQuery($"SELECT * FROM worker WHERE login='{login}' AND password='{HashPassword(password)}'");
-            return result.Rows.Count == 1;
+            var result = database.ExecuteQuery($"SELECT * FROM worker WHERE login='{login}' AND password='{HashPassword(password)}'");
+            return result.Count == 1;
+            
         }
         #endregion
 
@@ -56,22 +57,27 @@ namespace HotelReception
         public void SelectRooms()
         {
             //metoda ma zwraca wszystkie pokoje
-            DataTable result = database.ExecuteQuery("SELECT * FROM room");
+            var result = database.ExecuteQuery("SELECT * FROM room");
+            //przykład
+            foreach(DataRowView row in result)
+            {
+                Console.WriteLine(row["singlebeds"]);
+            }
         }
         public void SelectRental()
         {
             //zwraca wszsytkie wynajmy
-            DataTable result = database.ExecuteQuery("SELECT * FROM rental");
+            var result = database.ExecuteQuery("SELECT * FROM rental");
         }
         public void SelectEmployee()
         {
             //metoda ma zwracac wszystkich pracownikow 
-            DataTable result = database.ExecuteQuery("SELECT * FROM worker");
+            var result = database.ExecuteQuery("SELECT * FROM worker");
         }
         public void InsertRoom(int guests, int singleBeds, int doubleBeds, bool balcony, int cost)
         {
             //dodanie rooma 
-            int result = database.ExecuteNonQuery($"INSERT INTO room (idroom, guests, singlebeds, doublebeds, balcony, occupied, cost)" +
+            var result = database.ExecuteNonQuery($"INSERT INTO room (idroom, guests, singlebeds, doublebeds, balcony, occupied, cost)" +
                                                   $" VALUES ({null}, {guests}, {singleBeds}, {doubleBeds}, {balcony}, {0}, {cost})");
         }
         public void UpdateRoom(int id,int ileOsob, int ilePoje, int ilePodw, bool czyTaras, int koszt)
