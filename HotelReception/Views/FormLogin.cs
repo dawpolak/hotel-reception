@@ -33,9 +33,6 @@ namespace HotelReception
                 if (Access && CorrectUser)
                 {
                     this.Visible = false;
-                    reception.Update();
-                    reception.ResetText();
-                    reception.Refresh();
                     reception.ShowDialog();
                     textBoxLogin.Text = "";
                     textBoxPassword.Text = "";
@@ -43,7 +40,7 @@ namespace HotelReception
                 }else
                 {
                     if (!Access) MessageBox.Show("Nie mozna polaczyc sie z baza.");
-                    if (!CorrectUser)
+                    else if (!CorrectUser)
                     {
                         MessageBox.Show("Bledny login lub haslo");
                         textBoxLogin.Text = "";

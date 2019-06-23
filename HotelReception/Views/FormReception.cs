@@ -355,6 +355,7 @@ namespace HotelReception
                 //this.tabPageEmployees.PerformLayout();
                 //this.tabPageRoomsAdmin.ResumeLayout(false);
                 //this.tabPageRoomsAdmin.PerformLayout();
+                
 
 
             }
@@ -368,7 +369,14 @@ namespace HotelReception
 
         private void FormReception_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //tabPageEmployees.Controls.Remove(tabPageEmployees);
+            if (IfAdmin)
+            {
+                this.tabControlReception.Controls[3].Controls.Clear();
+                this.tabControlReception.Controls.RemoveAt(3);
+                this.tabControlReception.Controls[2].Controls.Clear();
+                this.tabControlReception.Controls.RemoveAt(2);
+            }
+
         }
     }
 }
