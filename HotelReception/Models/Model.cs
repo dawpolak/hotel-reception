@@ -70,10 +70,13 @@ namespace HotelReception
 
         //dodatkowo trzeba zrobic wyzwalacz ktory czy insercie i selectcie bedzie pilnowal wielkosci znakow( imiona i nazwiska z duzej reszta z malej)
         //myslalem o czyms takim co by usuwalo wynajmy starszy niz miesiac zeby baza nie puchła w nieskonczonosc 
-        public void SelectRooms(int ileOsob, DateTime odKiedy, DateTime dokiedy, bool czyMaTaras)
+        public void SelectRooms(int guests, DateTime start, DateTime end, bool balcony)
         {
             //metoda ma zwracac liste pokoi ze wszystkimi parametrami spelniajace warunki z argumentow
-            
+            var result = database.ExecuteQuery("select r.idroom from room r, rental p " +
+                                               "where r.idroom = p.idroom and " +
+                                               $"guests = {guests} balcony = {balcony} " +
+                                               $"and not('{start.ToShortDateString()}' <= p.end AND p.start <= '{end.ToShortDateString()}');");
         }
         public void SelectRooms()
         {

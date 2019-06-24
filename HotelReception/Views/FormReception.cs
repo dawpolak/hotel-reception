@@ -384,7 +384,6 @@ namespace HotelReception
                 this.tabControlReception.Controls[2].Controls.Clear();
                 this.tabControlReception.Controls.RemoveAt(2);
             }
-
         }
 
         private void tabControlReception_SelectedIndexChanged(object sender, EventArgs e)
