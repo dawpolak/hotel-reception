@@ -30,6 +30,7 @@
         {
             this.tabControlReception = new System.Windows.Forms.TabControl();
             this.tabPageRent = new System.Windows.Forms.TabPage();
+            this.numericUpDownRentRoom = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,17 +40,15 @@
             this.buttonDeleteRent = new System.Windows.Forms.Button();
             this.buttonEditRent = new System.Windows.Forms.Button();
             this.buttonAddRent = new System.Windows.Forms.Button();
-            this.labelRentPrice = new System.Windows.Forms.Label();
-            this.labelRent5 = new System.Windows.Forms.Label();
             this.labelRent4 = new System.Windows.Forms.Label();
-            this.comboBoxRent = new System.Windows.Forms.ComboBox();
             this.labelRent3 = new System.Windows.Forms.Label();
             this.labelRent2 = new System.Windows.Forms.Label();
             this.dateTimePickerRent2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerRent1 = new System.Windows.Forms.DateTimePicker();
             this.labelRent1 = new System.Windows.Forms.Label();
-            this.listBoxRent = new System.Windows.Forms.ListBox();
+            this.listBoxRents = new System.Windows.Forms.ListBox();
             this.tabPageRooms = new System.Windows.Forms.TabPage();
+            this.buttonFiltr = new System.Windows.Forms.Button();
             this.labelRooms8 = new System.Windows.Forms.Label();
             this.labelRooms7 = new System.Windows.Forms.Label();
             this.dateTimePickerRooms4 = new System.Windows.Forms.DateTimePicker();
@@ -57,28 +56,28 @@
             this.labelRooms6 = new System.Windows.Forms.Label();
             this.checkBoxRooms = new System.Windows.Forms.CheckBox();
             this.numericUpDownRooms1 = new System.Windows.Forms.NumericUpDown();
-            this.listBoxRooms2 = new System.Windows.Forms.ListBox();
+            this.listBoxRooms = new System.Windows.Forms.ListBox();
             this.labelUserName = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.listBoxEmployees = new System.Windows.Forms.ListBox();
             this.textBoxFirstName = new System.Windows.Forms.TextBox();
             this.textBoxLastName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkBoxAdmin = new System.Windows.Forms.CheckBox();
+            this.textBoxPhone = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.listBox4 = new System.Windows.Forms.ListBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.listBoxRoomsAdmin = new System.Windows.Forms.ListBox();
+            this.numericUpDownGuests = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownIdRoom = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownSingleBeds = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownDoubleBeds = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxBalcony = new System.Windows.Forms.CheckBox();
+            this.textBoxCost = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -92,12 +91,13 @@
             this.buttonAddEmployee = new System.Windows.Forms.Button();
             this.tabControlReception.SuspendLayout();
             this.tabPageRent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRentRoom)).BeginInit();
             this.tabPageRooms.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRooms1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGuests)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIdRoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSingleBeds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDoubleBeds)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlReception
@@ -114,6 +114,7 @@
             // 
             // tabPageRent
             // 
+            this.tabPageRent.Controls.Add(this.numericUpDownRentRoom);
             this.tabPageRent.Controls.Add(this.label3);
             this.tabPageRent.Controls.Add(this.label2);
             this.tabPageRent.Controls.Add(this.label1);
@@ -123,16 +124,13 @@
             this.tabPageRent.Controls.Add(this.buttonDeleteRent);
             this.tabPageRent.Controls.Add(this.buttonEditRent);
             this.tabPageRent.Controls.Add(this.buttonAddRent);
-            this.tabPageRent.Controls.Add(this.labelRentPrice);
-            this.tabPageRent.Controls.Add(this.labelRent5);
             this.tabPageRent.Controls.Add(this.labelRent4);
-            this.tabPageRent.Controls.Add(this.comboBoxRent);
             this.tabPageRent.Controls.Add(this.labelRent3);
             this.tabPageRent.Controls.Add(this.labelRent2);
             this.tabPageRent.Controls.Add(this.dateTimePickerRent2);
             this.tabPageRent.Controls.Add(this.dateTimePickerRent1);
             this.tabPageRent.Controls.Add(this.labelRent1);
-            this.tabPageRent.Controls.Add(this.listBoxRent);
+            this.tabPageRent.Controls.Add(this.listBoxRents);
             this.tabPageRent.Location = new System.Drawing.Point(4, 25);
             this.tabPageRent.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageRent.Name = "tabPageRent";
@@ -141,6 +139,13 @@
             this.tabPageRent.TabIndex = 0;
             this.tabPageRent.Text = "Wynajem";
             this.tabPageRent.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownRentRoom
+            // 
+            this.numericUpDownRentRoom.Location = new System.Drawing.Point(135, 11);
+            this.numericUpDownRentRoom.Name = "numericUpDownRentRoom";
+            this.numericUpDownRentRoom.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownRentRoom.TabIndex = 19;
             // 
             // label3
             // 
@@ -198,6 +203,7 @@
             this.buttonDeleteRent.TabIndex = 12;
             this.buttonDeleteRent.Text = "Usun";
             this.buttonDeleteRent.UseVisualStyleBackColor = true;
+            this.buttonDeleteRent.Click += new System.EventHandler(this.buttonDeleteRent_Click);
             // 
             // buttonEditRent
             // 
@@ -207,6 +213,7 @@
             this.buttonEditRent.TabIndex = 11;
             this.buttonEditRent.Text = "Edytuj";
             this.buttonEditRent.UseVisualStyleBackColor = true;
+            this.buttonEditRent.Click += new System.EventHandler(this.buttonEditRent_Click);
             // 
             // buttonAddRent
             // 
@@ -216,24 +223,7 @@
             this.buttonAddRent.TabIndex = 10;
             this.buttonAddRent.Text = "Dodaj";
             this.buttonAddRent.UseVisualStyleBackColor = true;
-            // 
-            // labelRentPrice
-            // 
-            this.labelRentPrice.AutoSize = true;
-            this.labelRentPrice.Location = new System.Drawing.Point(24, 172);
-            this.labelRentPrice.Name = "labelRentPrice";
-            this.labelRentPrice.Size = new System.Drawing.Size(23, 17);
-            this.labelRentPrice.TabIndex = 9;
-            this.labelRentPrice.Text = "---";
-            // 
-            // labelRent5
-            // 
-            this.labelRent5.AutoSize = true;
-            this.labelRent5.Location = new System.Drawing.Point(24, 146);
-            this.labelRent5.Name = "labelRent5";
-            this.labelRent5.Size = new System.Drawing.Size(43, 17);
-            this.labelRent5.TabIndex = 8;
-            this.labelRent5.Text = "Koszt";
+            this.buttonAddRent.Click += new System.EventHandler(this.buttonAddRent_Click);
             // 
             // labelRent4
             // 
@@ -243,14 +233,6 @@
             this.labelRent4.Size = new System.Drawing.Size(96, 17);
             this.labelRent4.TabIndex = 7;
             this.labelRent4.Text = "Numer pokoju";
-            // 
-            // comboBoxRent
-            // 
-            this.comboBoxRent.FormattingEnabled = true;
-            this.comboBoxRent.Location = new System.Drawing.Point(127, 10);
-            this.comboBoxRent.Name = "comboBoxRent";
-            this.comboBoxRent.Size = new System.Drawing.Size(121, 24);
-            this.comboBoxRent.TabIndex = 6;
             // 
             // labelRent3
             // 
@@ -287,23 +269,25 @@
             // labelRent1
             // 
             this.labelRent1.AutoSize = true;
-            this.labelRent1.Location = new System.Drawing.Point(312, 4);
+            this.labelRent1.Location = new System.Drawing.Point(298, 4);
             this.labelRent1.Name = "labelRent1";
             this.labelRent1.Size = new System.Drawing.Size(69, 17);
             this.labelRent1.TabIndex = 1;
             this.labelRent1.Text = "Wynajmy:";
             // 
-            // listBoxRent
+            // listBoxRents
             // 
-            this.listBoxRent.FormattingEnabled = true;
-            this.listBoxRent.ItemHeight = 16;
-            this.listBoxRent.Location = new System.Drawing.Point(315, 24);
-            this.listBoxRent.Name = "listBoxRent";
-            this.listBoxRent.Size = new System.Drawing.Size(423, 308);
-            this.listBoxRent.TabIndex = 0;
+            this.listBoxRents.FormattingEnabled = true;
+            this.listBoxRents.ItemHeight = 16;
+            this.listBoxRents.Location = new System.Drawing.Point(301, 24);
+            this.listBoxRents.Name = "listBoxRents";
+            this.listBoxRents.Size = new System.Drawing.Size(452, 308);
+            this.listBoxRents.TabIndex = 0;
+            this.listBoxRents.Click += new System.EventHandler(this.listBoxRents_Click);
             // 
             // tabPageRooms
             // 
+            this.tabPageRooms.Controls.Add(this.buttonFiltr);
             this.tabPageRooms.Controls.Add(this.labelRooms8);
             this.tabPageRooms.Controls.Add(this.labelRooms7);
             this.tabPageRooms.Controls.Add(this.dateTimePickerRooms4);
@@ -311,7 +295,7 @@
             this.tabPageRooms.Controls.Add(this.labelRooms6);
             this.tabPageRooms.Controls.Add(this.checkBoxRooms);
             this.tabPageRooms.Controls.Add(this.numericUpDownRooms1);
-            this.tabPageRooms.Controls.Add(this.listBoxRooms2);
+            this.tabPageRooms.Controls.Add(this.listBoxRooms);
             this.tabPageRooms.Location = new System.Drawing.Point(4, 25);
             this.tabPageRooms.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageRooms.Name = "tabPageRooms";
@@ -321,10 +305,20 @@
             this.tabPageRooms.Text = "Pokoje";
             this.tabPageRooms.UseVisualStyleBackColor = true;
             // 
+            // buttonFiltr
+            // 
+            this.buttonFiltr.Location = new System.Drawing.Point(690, 7);
+            this.buttonFiltr.Name = "buttonFiltr";
+            this.buttonFiltr.Size = new System.Drawing.Size(63, 51);
+            this.buttonFiltr.TabIndex = 8;
+            this.buttonFiltr.Text = "Filtruj";
+            this.buttonFiltr.UseVisualStyleBackColor = true;
+            this.buttonFiltr.Click += new System.EventHandler(this.buttonFiltr_Click);
+            // 
             // labelRooms8
             // 
             this.labelRooms8.AutoSize = true;
-            this.labelRooms8.Location = new System.Drawing.Point(397, 21);
+            this.labelRooms8.Location = new System.Drawing.Point(378, 21);
             this.labelRooms8.Name = "labelRooms8";
             this.labelRooms8.Size = new System.Drawing.Size(30, 17);
             this.labelRooms8.TabIndex = 7;
@@ -333,7 +327,7 @@
             // labelRooms7
             // 
             this.labelRooms7.AutoSize = true;
-            this.labelRooms7.Location = new System.Drawing.Point(146, 21);
+            this.labelRooms7.Location = new System.Drawing.Point(139, 21);
             this.labelRooms7.Name = "labelRooms7";
             this.labelRooms7.Size = new System.Drawing.Size(31, 17);
             this.labelRooms7.TabIndex = 6;
@@ -341,14 +335,14 @@
             // 
             // dateTimePickerRooms4
             // 
-            this.dateTimePickerRooms4.Location = new System.Drawing.Point(433, 19);
+            this.dateTimePickerRooms4.Location = new System.Drawing.Point(408, 19);
             this.dateTimePickerRooms4.Name = "dateTimePickerRooms4";
             this.dateTimePickerRooms4.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerRooms4.TabIndex = 5;
             // 
             // dateTimePickerRooms3
             // 
-            this.dateTimePickerRooms3.Location = new System.Drawing.Point(179, 20);
+            this.dateTimePickerRooms3.Location = new System.Drawing.Point(170, 20);
             this.dateTimePickerRooms3.Name = "dateTimePickerRooms3";
             this.dateTimePickerRooms3.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerRooms3.TabIndex = 4;
@@ -365,7 +359,7 @@
             // checkBoxRooms
             // 
             this.checkBoxRooms.AutoSize = true;
-            this.checkBoxRooms.Location = new System.Drawing.Point(663, 21);
+            this.checkBoxRooms.Location = new System.Drawing.Point(617, 21);
             this.checkBoxRooms.Name = "checkBoxRooms";
             this.checkBoxRooms.Size = new System.Drawing.Size(67, 21);
             this.checkBoxRooms.TabIndex = 2;
@@ -384,14 +378,15 @@
             this.numericUpDownRooms1.Size = new System.Drawing.Size(59, 22);
             this.numericUpDownRooms1.TabIndex = 1;
             // 
-            // listBoxRooms2
+            // listBoxRooms
             // 
-            this.listBoxRooms2.FormattingEnabled = true;
-            this.listBoxRooms2.ItemHeight = 16;
-            this.listBoxRooms2.Location = new System.Drawing.Point(7, 64);
-            this.listBoxRooms2.Name = "listBoxRooms2";
-            this.listBoxRooms2.Size = new System.Drawing.Size(746, 276);
-            this.listBoxRooms2.TabIndex = 0;
+            this.listBoxRooms.FormattingEnabled = true;
+            this.listBoxRooms.ItemHeight = 16;
+            this.listBoxRooms.Location = new System.Drawing.Point(7, 64);
+            this.listBoxRooms.Name = "listBoxRooms";
+            this.listBoxRooms.Size = new System.Drawing.Size(746, 276);
+            this.listBoxRooms.TabIndex = 0;
+            this.listBoxRooms.DoubleClick += new System.EventHandler(this.listBoxRooms_DoubleClick);
             // 
             // labelUserName
             // 
@@ -413,12 +408,12 @@
             this.labelTitle.TabIndex = 2;
             this.labelTitle.Text = "Hotel L E G I A";
             // 
-            // listBox3
+            // listBoxEmployees
             // 
-            this.listBox3.Location = new System.Drawing.Point(0, 0);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(120, 96);
-            this.listBox3.TabIndex = 0;
+            this.listBoxEmployees.Location = new System.Drawing.Point(0, 0);
+            this.listBoxEmployees.Name = "listBoxEmployees";
+            this.listBoxEmployees.Size = new System.Drawing.Size(120, 96);
+            this.listBoxEmployees.TabIndex = 0;
             // 
             // textBoxFirstName
             // 
@@ -448,19 +443,19 @@
             this.label10.Size = new System.Drawing.Size(100, 23);
             this.label10.TabIndex = 0;
             // 
-            // checkBox2
+            // checkBoxAdmin
             // 
-            this.checkBox2.Location = new System.Drawing.Point(0, 0);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(104, 24);
-            this.checkBox2.TabIndex = 0;
+            this.checkBoxAdmin.Location = new System.Drawing.Point(0, 0);
+            this.checkBoxAdmin.Name = "checkBoxAdmin";
+            this.checkBoxAdmin.Size = new System.Drawing.Size(104, 24);
+            this.checkBoxAdmin.TabIndex = 0;
             // 
-            // textBox1
+            // textBoxPhone
             // 
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 0;
+            this.textBoxPhone.Location = new System.Drawing.Point(0, 0);
+            this.textBoxPhone.Name = "textBoxPhone";
+            this.textBoxPhone.Size = new System.Drawing.Size(100, 22);
+            this.textBoxPhone.TabIndex = 0;
             // 
             // label11
             // 
@@ -497,54 +492,54 @@
             this.textBoxPassword.Size = new System.Drawing.Size(100, 22);
             this.textBoxPassword.TabIndex = 0;
             // 
-            // listBox4
+            // listBoxRoomsAdmin
             // 
-            this.listBox4.Location = new System.Drawing.Point(0, 0);
-            this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(120, 96);
-            this.listBox4.TabIndex = 0;
+            this.listBoxRoomsAdmin.Location = new System.Drawing.Point(0, 0);
+            this.listBoxRoomsAdmin.Name = "listBoxRoomsAdmin";
+            this.listBoxRoomsAdmin.Size = new System.Drawing.Size(120, 96);
+            this.listBoxRoomsAdmin.TabIndex = 0;
             // 
-            // numericUpDown2
+            // numericUpDownGuests
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(0, 0);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown2.TabIndex = 0;
+            this.numericUpDownGuests.Location = new System.Drawing.Point(0, 0);
+            this.numericUpDownGuests.Name = "numericUpDownGuests";
+            this.numericUpDownGuests.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownGuests.TabIndex = 0;
             // 
-            // numericUpDown3
+            // numericUpDownIdRoom
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(0, 0);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown3.TabIndex = 0;
+            this.numericUpDownIdRoom.Location = new System.Drawing.Point(0, 0);
+            this.numericUpDownIdRoom.Name = "numericUpDownIdRoom";
+            this.numericUpDownIdRoom.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownIdRoom.TabIndex = 0;
             // 
-            // numericUpDown4
+            // numericUpDownSingleBeds
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(0, 0);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown4.TabIndex = 0;
+            this.numericUpDownSingleBeds.Location = new System.Drawing.Point(0, 0);
+            this.numericUpDownSingleBeds.Name = "numericUpDownSingleBeds";
+            this.numericUpDownSingleBeds.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownSingleBeds.TabIndex = 0;
             // 
-            // numericUpDown5
+            // numericUpDownDoubleBeds
             // 
-            this.numericUpDown5.Location = new System.Drawing.Point(0, 0);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown5.TabIndex = 0;
+            this.numericUpDownDoubleBeds.Location = new System.Drawing.Point(0, 0);
+            this.numericUpDownDoubleBeds.Name = "numericUpDownDoubleBeds";
+            this.numericUpDownDoubleBeds.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownDoubleBeds.TabIndex = 0;
             // 
-            // checkBox3
+            // checkBoxBalcony
             // 
-            this.checkBox3.Location = new System.Drawing.Point(0, 0);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(104, 24);
-            this.checkBox3.TabIndex = 0;
+            this.checkBoxBalcony.Location = new System.Drawing.Point(0, 0);
+            this.checkBoxBalcony.Name = "checkBoxBalcony";
+            this.checkBoxBalcony.Size = new System.Drawing.Size(104, 24);
+            this.checkBoxBalcony.TabIndex = 0;
             // 
-            // textBox2
+            // textBoxCost
             // 
-            this.textBox2.Location = new System.Drawing.Point(0, 0);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 0;
+            this.textBoxCost.Location = new System.Drawing.Point(0, 0);
+            this.textBoxCost.Name = "textBoxCost";
+            this.textBoxCost.Size = new System.Drawing.Size(100, 22);
+            this.textBoxCost.TabIndex = 0;
             // 
             // label14
             // 
@@ -639,13 +634,14 @@
             this.tabControlReception.ResumeLayout(false);
             this.tabPageRent.ResumeLayout(false);
             this.tabPageRent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRentRoom)).EndInit();
             this.tabPageRooms.ResumeLayout(false);
             this.tabPageRooms.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRooms1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownGuests)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIdRoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSingleBeds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDoubleBeds)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -661,12 +657,9 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerRent2;
         private System.Windows.Forms.DateTimePicker dateTimePickerRent1;
         private System.Windows.Forms.Label labelRent1;
-        private System.Windows.Forms.ListBox listBoxRent;
+        private System.Windows.Forms.ListBox listBoxRents;
         private System.Windows.Forms.Button buttonAddRent;
-        private System.Windows.Forms.Label labelRentPrice;
-        private System.Windows.Forms.Label labelRent5;
         private System.Windows.Forms.Label labelRent4;
-        private System.Windows.Forms.ComboBox comboBoxRent;
         private System.Windows.Forms.Label labelRent3;
         private System.Windows.Forms.Label labelRent2;
         private System.Windows.Forms.Label labelRooms8;
@@ -676,7 +669,7 @@
         private System.Windows.Forms.Label labelRooms6;
         private System.Windows.Forms.CheckBox checkBoxRooms;
         private System.Windows.Forms.NumericUpDown numericUpDownRooms1;
-        private System.Windows.Forms.ListBox listBoxRooms2;
+        private System.Windows.Forms.ListBox listBoxRooms;
         private System.Windows.Forms.TabPage tabPageEmployees;
         private System.Windows.Forms.TabPage tabPageRoomsAdmin;
         private System.Windows.Forms.Button buttonDeleteRent;
@@ -686,24 +679,24 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.TextBox textBoxPhone;
+        private System.Windows.Forms.CheckBox checkBoxAdmin;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.TextBox textBoxFirstName;
-        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.ListBox listBoxEmployees;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.ListBox listBox4;
+        private System.Windows.Forms.TextBox textBoxCost;
+        private System.Windows.Forms.CheckBox checkBoxBalcony;
+        private System.Windows.Forms.NumericUpDown numericUpDownDoubleBeds;
+        private System.Windows.Forms.NumericUpDown numericUpDownSingleBeds;
+        private System.Windows.Forms.NumericUpDown numericUpDownIdRoom;
+        private System.Windows.Forms.NumericUpDown numericUpDownGuests;
+        private System.Windows.Forms.ListBox listBoxRoomsAdmin;
         private System.Windows.Forms.Button buttonDeleteEmployee;
         private System.Windows.Forms.Button buttonEditEmployee;
         private System.Windows.Forms.Button buttonAddEmployee;
@@ -717,5 +710,7 @@
         private System.Windows.Forms.TextBox textBoxClientFirstName;
         private System.Windows.Forms.TextBox textBoxClientPhone;
         private System.Windows.Forms.TextBox textBoxClientSecondName;
+        private System.Windows.Forms.Button buttonFiltr;
+        private System.Windows.Forms.NumericUpDown numericUpDownRentRoom;
     }
 }

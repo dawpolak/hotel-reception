@@ -16,19 +16,134 @@ namespace HotelReception
         {
             InitializeComponent();
         }
+        #region Properties
+        private Room currentRoom = new Room();
+        private Room CurrentRoom
+        {
+            get
+            {
+                currentRoom.Idroom = null;
+                currentRoom.Guests = (int)numericUpDownGuests.Value;
+                currentRoom.SingleBeds =(int)numericUpDownSingleBeds.Value;
+                currentRoom.DoubleBeds = (int)numericUpDownDoubleBeds.Value;
+                currentRoom.Occupied = false;
+                currentRoom.Balcony = checkBoxBalcony.Checked;
+                currentRoom.Cost = Double.Parse(textBoxCost.Text);
 
+
+                return currentRoom;
+            }
+            set
+            {
+                numericUpDownIdRoom.Value = (decimal)value.Idroom;
+                currentRoom.Idroom = value.Idroom;
+                numericUpDownGuests.Value = value.Guests;
+                numericUpDownSingleBeds.Value = value.SingleBeds;
+                numericUpDownDoubleBeds.Value = value.DoubleBeds;
+                checkBoxBalcony.Checked = value.Balcony;
+                textBoxCost.Text = value.Cost.ToString();
+            }
+        }
+        private Rent currentRent = new Rent();
+        private Rent CurrentRent
+        {
+            get
+            {
+                currentRent.Idroom = (int)numericUpDownRentRoom.Value;
+                currentRent.Start = dateTimePickerRent1.Value;
+                currentRent.End = dateTimePickerRent2.Value;
+                currentRent.Cost = 0;
+                currentRent.Firstname = textBoxClientFirstName.Text;
+                currentRent.Lastname = textBoxClientSecondName.Text;
+                currentRent.Phone = textBoxClientPhone.Text;
+                return currentRent;
+            }
+            set
+            {
+                numericUpDownRentRoom.Value = value.Idroom;
+                dateTimePickerRent1.Value = value.Start;
+                dateTimePickerRent2.Value = value.End;
+                textBoxClientFirstName.Text = value.Firstname;
+                textBoxClientSecondName.Text = value.Lastname;
+                textBoxClientPhone.Text = value.Phone;
+            }
+        }
+
+        private Employee currentEmployee =new Employee();
+        private Employee CurrentEmployee
+        {
+            get
+            {
+                currentEmployee.Idworker = null;
+                currentEmployee.FirstName = textBoxFirstName.Text;
+                currentEmployee.LastName = textBoxLastName.Text;
+                currentEmployee.IsAdmin = checkBoxAdmin.Checked;
+                currentEmployee.Phone = textBoxPhone.Text;
+                currentEmployee.Login = textBoxLogin.Text;
+                currentEmployee.Password = textBoxPassword.Text;
+                return currentEmployee;
+            }
+            set
+            {
+                textBoxFirstName.Text = value.FirstName;
+                textBoxLastName.Text = value.LastName;
+                checkBoxAdmin.Checked = value.IsAdmin;
+                textBoxPhone.Text = value.Phone;
+                textBoxLogin.Text = value.Login;
+                textBoxPassword.Text = value.Password;
+            }
+            
+        }
+        #endregion
+
+        #region IReception
         public string UserName { set => labelUserName.Text = "Jestes zalogowany jako: "+value; }
         public bool IfAdmin { get;  set; }
         public List<Employee> Employees
         {
             set
             {
-                listBox3.Items.AddRange(value.ToArray());
+                listBoxEmployees.Items.Clear();
+                listBoxEmployees.Items.AddRange(value.ToArray());
+            }
+        }
+
+        public List<Rent> Rents
+        {
+            set
+            {
+                listBoxRents.Items.Clear();
+                listBoxRents.Items.AddRange(value.ToArray());
+            }
+        }
+
+        public List<Room> Rooms
+        {
+            set
+            {
+                listBoxRooms.Items.Clear();
+                listBoxRoomsAdmin.Items.Clear();
+                listBoxRooms.Items.AddRange(value.ToArray());
+                listBoxRoomsAdmin.Items.AddRange(value.ToArray());
             }
         }
 
         public event Action GetInfo;
         public event Action SelectEmployees;
+        public event Action SelectRooms;
+        public event Action SelectRents;
+
+        public event Action<Rent> InsertRent;
+        public event Action<Room> InsertRoom;
+        public event Action<Employee> InsertEmployee;
+        public event Action<Rent> UpdateRent;
+        public event Action<Room> UpdateRoom;
+        public event Action<Employee> UpdateEmployee;
+        public event Action<int, DateTime, DateTime> DeleteRent;
+        public event Action<int> DeleteRoom;
+        public event Action<int> DeleteEmployee;
+        public event Action<int,DateTime,DateTime,bool> SelectRoomsFilter;
+        #endregion
 
         private void FormReception_Load(object sender, EventArgs e)
         {
@@ -53,13 +168,13 @@ namespace HotelReception
                 this.tabPageEmployees.Controls.Add(this.label13);
                 this.tabPageEmployees.Controls.Add(this.label12);
                 this.tabPageEmployees.Controls.Add(this.label11);
-                this.tabPageEmployees.Controls.Add(this.textBox1);
-                this.tabPageEmployees.Controls.Add(this.checkBox2);
+                this.tabPageEmployees.Controls.Add(this.textBoxPhone);
+                this.tabPageEmployees.Controls.Add(this.checkBoxAdmin);
                 this.tabPageEmployees.Controls.Add(this.label10);
                 this.tabPageEmployees.Controls.Add(this.label9);
                 this.tabPageEmployees.Controls.Add(this.textBoxLastName);
                 this.tabPageEmployees.Controls.Add(this.textBoxFirstName);
-                this.tabPageEmployees.Controls.Add(this.listBox3);
+                this.tabPageEmployees.Controls.Add(this.listBoxEmployees);
                 this.tabPageEmployees.Location = new System.Drawing.Point(4, 25);
                 this.tabPageEmployees.Name = "tabPageEmployees";
                 this.tabPageEmployees.Size = new System.Drawing.Size(760, 359);
@@ -68,15 +183,16 @@ namespace HotelReception
                 this.tabPageEmployees.UseVisualStyleBackColor = true;
 
                 // 
-                // listBox3
+                // listBoxEmployees
                 // 
-                this.listBox3.FormattingEnabled = true;
-                this.listBox3.ItemHeight = 16;
-                this.listBox3.Location = new System.Drawing.Point(280, 16);
-                this.listBox3.Name = "listBox3";
-                this.listBox3.Size = new System.Drawing.Size(270, 270);
-                this.listBox3.TabIndex = 0;
-                
+                this.listBoxEmployees.FormattingEnabled = true;
+                this.listBoxEmployees.ItemHeight = 16;
+                this.listBoxEmployees.Location = new System.Drawing.Point(280, 16);
+                this.listBoxEmployees.Name = "listBox3";
+                this.listBoxEmployees.Size = new System.Drawing.Size(270, 270);
+                this.listBoxEmployees.TabIndex = 0;
+                this.listBoxEmployees.Click += new System.EventHandler(this.listBoxEmployees_Click);
+
                 // 
                 // label9
                 // 
@@ -110,22 +226,22 @@ namespace HotelReception
                 this.textBoxLastName.Size = new System.Drawing.Size(160, 22);
                 this.textBoxLastName.TabIndex = 2;
                 // 
-                // checkBox2
+                // checkBoxAdmin
                 // 
-                this.checkBox2.AutoSize = true;
-                this.checkBox2.Location = new System.Drawing.Point(60, 180);
-                this.checkBox2.Name = "checkBox2";
-                this.checkBox2.Size = new System.Drawing.Size(69, 21);
-                this.checkBox2.TabIndex = 5;
-                this.checkBox2.Text = "Admin";
-                this.checkBox2.UseVisualStyleBackColor = true;
+                this.checkBoxAdmin.AutoSize = true;
+                this.checkBoxAdmin.Location = new System.Drawing.Point(60, 180);
+                this.checkBoxAdmin.Name = "checkBoxAdmin";
+                this.checkBoxAdmin.Size = new System.Drawing.Size(69, 21);
+                this.checkBoxAdmin.TabIndex = 5;
+                this.checkBoxAdmin.Text = "Admin";
+                this.checkBoxAdmin.UseVisualStyleBackColor = true;
                 // 
                 // textBox1
                 // 
-                this.textBox1.Location = new System.Drawing.Point(93, 220);
-                this.textBox1.Name = "textBox1";
-                this.textBox1.Size = new System.Drawing.Size(160, 22);
-                this.textBox1.TabIndex = 6;
+                this.textBoxPhone.Location = new System.Drawing.Point(93, 220);
+                this.textBoxPhone.Name = "textBoxPhone";
+                this.textBoxPhone.Size = new System.Drawing.Size(160, 22);
+                this.textBoxPhone.TabIndex = 6;
                 // 
                 // label11
                 // 
@@ -177,6 +293,7 @@ namespace HotelReception
                 this.buttonDeleteEmployee.TabIndex = 16;
                 this.buttonDeleteEmployee.Text = "Usun";
                 this.buttonDeleteEmployee.UseVisualStyleBackColor = true;
+                this.buttonDeleteEmployee.Click += new System.EventHandler(this.buttonDeleteEmployee_Click);
                 // 
                 // buttonEditEmployee
                 // 
@@ -186,6 +303,7 @@ namespace HotelReception
                 this.buttonEditEmployee.TabIndex = 15;
                 this.buttonEditEmployee.Text = "Edytuj";
                 this.buttonEditEmployee.UseVisualStyleBackColor = true;
+                this.buttonEditEmployee.Click += new System.EventHandler(this.buttonEditEmployee_Click);
                 // 
                 // buttonAddEmployee
                 // 
@@ -195,6 +313,7 @@ namespace HotelReception
                 this.buttonAddEmployee.TabIndex = 14;
                 this.buttonAddEmployee.Text = "Dodaj";
                 this.buttonAddEmployee.UseVisualStyleBackColor = true;
+                this.buttonAddEmployee.Click += new System.EventHandler(this.buttonAddEmployee_Click);
                 #endregion
 
                 #region tabPageRooms
@@ -209,13 +328,13 @@ namespace HotelReception
                 this.tabPageRoomsAdmin.Controls.Add(this.label15);
                 this.tabPageRoomsAdmin.Controls.Add(this.label14);
                 this.tabPageRoomsAdmin.Controls.Add(this.labelCost);
-                this.tabPageRoomsAdmin.Controls.Add(this.textBox2);
-                this.tabPageRoomsAdmin.Controls.Add(this.checkBox3);
-                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDown5);
-                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDown4);
-                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDown3);
-                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDown2);
-                this.tabPageRoomsAdmin.Controls.Add(this.listBox4);
+                this.tabPageRoomsAdmin.Controls.Add(this.textBoxCost);
+                this.tabPageRoomsAdmin.Controls.Add(this.checkBoxBalcony);
+                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDownDoubleBeds);
+                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDownSingleBeds);
+                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDownIdRoom);
+                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDownGuests);
+                this.tabPageRoomsAdmin.Controls.Add(this.listBoxRoomsAdmin);
                 this.tabPageRoomsAdmin.Location = new System.Drawing.Point(4, 25);
                 this.tabPageRoomsAdmin.Name = "tabPageRoomsAdmin";
                 this.tabPageRoomsAdmin.Size = new System.Drawing.Size(760, 359);
@@ -232,6 +351,7 @@ namespace HotelReception
                 this.buttonAddRoom.TabIndex = 11;
                 this.buttonAddRoom.Text = "Dodaj";
                 this.buttonAddRoom.UseVisualStyleBackColor = true;
+                this.buttonAddRoom.Click += new System.EventHandler(this.buttonAddRoom_Click);
                 // 
                 // buttonEditRoom
                 // 
@@ -241,6 +361,7 @@ namespace HotelReception
                 this.buttonEditRoom.TabIndex = 12;
                 this.buttonEditRoom.Text = "Edytuj";
                 this.buttonEditRoom.UseVisualStyleBackColor = true;
+                this.buttonEditRoom.Click += new System.EventHandler(this.buttonEditRoom_Click);
                 // 
                 // buttonDeleteRoom
                 // 
@@ -250,7 +371,7 @@ namespace HotelReception
                 this.buttonDeleteRoom.TabIndex = 13;
                 this.buttonDeleteRoom.Text = "Usun";
                 this.buttonDeleteRoom.UseVisualStyleBackColor = true;
-
+                this.buttonDeleteRoom.Click += new System.EventHandler(this.buttonDeleteRoom_Click);
                 // 
                 // label14
                 // 
@@ -297,59 +418,60 @@ namespace HotelReception
                 this.labelCost.TabIndex = 10;
                 this.labelCost.Text = "Koszt";
                 // 
-                // listBox4
+                // listBoxRoomsAdmin
                 // 
-                this.listBox4.FormattingEnabled = true;
-                this.listBox4.ItemHeight = 16;
-                this.listBox4.Location = new System.Drawing.Point(324, 10);
-                this.listBox4.Name = "listBox4";
-                this.listBox4.Size = new System.Drawing.Size(230, 270);
-                this.listBox4.TabIndex = 0;
+                this.listBoxRoomsAdmin.FormattingEnabled = true;
+                this.listBoxRoomsAdmin.ItemHeight = 16;
+                this.listBoxRoomsAdmin.Location = new System.Drawing.Point(324, 10);
+                this.listBoxRoomsAdmin.Name = "listBox4";
+                this.listBoxRoomsAdmin.Size = new System.Drawing.Size(230, 270);
+                this.listBoxRoomsAdmin.TabIndex = 0;
+                this.listBoxRoomsAdmin.Click += new System.EventHandler(this.listBoxRoomsAdmin_Click);
                 // 
-                // numericUpDown2
+                // numericUpDownGuests
                 // 
-                this.numericUpDown2.Location = new System.Drawing.Point(193, 20);
-                this.numericUpDown2.Name = "numericUpDown2";
-                this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
-                this.numericUpDown2.TabIndex = 1;
+                this.numericUpDownGuests.Location = new System.Drawing.Point(193, 60);
+                this.numericUpDownGuests.Name = "numericUpDownGuests";
+                this.numericUpDownGuests.Size = new System.Drawing.Size(120, 22);
+                this.numericUpDownGuests.TabIndex = 1;
                 // 
-                // numericUpDown3
+                // numericUpDownIdRoom
                 // 
-                this.numericUpDown3.Location = new System.Drawing.Point(193, 60);
-                this.numericUpDown3.Name = "numericUpDown3";
-                this.numericUpDown3.Size = new System.Drawing.Size(120, 22);
-                this.numericUpDown3.TabIndex = 2;
+                this.numericUpDownIdRoom.Location = new System.Drawing.Point(193, 20);
+                this.numericUpDownIdRoom.Name = "numericUpDownIdRoom";
+                this.numericUpDownIdRoom.Size = new System.Drawing.Size(120, 22);
+                this.numericUpDownIdRoom.TabIndex = 2;
                 // 
-                // numericUpDown4
+                // numericUpDownSingleBeds
                 // 
-                this.numericUpDown4.Location = new System.Drawing.Point(193, 100);
-                this.numericUpDown4.Name = "numericUpDown4";
-                this.numericUpDown4.Size = new System.Drawing.Size(120, 22);
-                this.numericUpDown4.TabIndex = 3;
+                this.numericUpDownSingleBeds.Location = new System.Drawing.Point(193, 100);
+                this.numericUpDownSingleBeds.Name = "numericUpDownSingleBeds";
+                this.numericUpDownSingleBeds.Size = new System.Drawing.Size(120, 22);
+                this.numericUpDownSingleBeds.TabIndex = 3;
                 // 
-                // numericUpDown5
+                // numericUpDownDoubleBeds
                 // 
-                this.numericUpDown5.Location = new System.Drawing.Point(193, 140);
-                this.numericUpDown5.Name = "numericUpDown5";
-                this.numericUpDown5.Size = new System.Drawing.Size(120, 22);
-                this.numericUpDown5.TabIndex = 4;
+                this.numericUpDownDoubleBeds.Location = new System.Drawing.Point(193, 140);
+                this.numericUpDownDoubleBeds.Name = "numericUpDownDoublebeds";
+                this.numericUpDownDoubleBeds.Size = new System.Drawing.Size(120, 22);
+                this.numericUpDownDoubleBeds.TabIndex = 4;
                 // 
-                // checkBox3
+                // checkBoxBalcony
                 // 
-                this.checkBox3.AutoSize = true;
-                this.checkBox3.Location = new System.Drawing.Point(193, 180);
-                this.checkBox3.Name = "checkBox3";
-                this.checkBox3.Size = new System.Drawing.Size(67, 21);
-                this.checkBox3.TabIndex = 5;
-                this.checkBox3.Text = "Taras";
-                this.checkBox3.UseVisualStyleBackColor = true;
+                this.checkBoxBalcony.AutoSize = true;
+                this.checkBoxBalcony.Location = new System.Drawing.Point(193, 180);
+                this.checkBoxBalcony.Name = "checkBoxBalcony";
+                this.checkBoxBalcony.Size = new System.Drawing.Size(67, 21);
+                this.checkBoxBalcony.TabIndex = 5;
+                this.checkBoxBalcony.Text = "Taras";
+                this.checkBoxBalcony.UseVisualStyleBackColor = true;
                 // 
-                // textBox2
+                // textBoxCost
                 // 
-                this.textBox2.Location = new System.Drawing.Point(193, 220);
-                this.textBox2.Name = "textBox2";
-                this.textBox2.Size = new System.Drawing.Size(120, 22);
-                this.textBox2.TabIndex = 6;
+                this.textBoxCost.Location = new System.Drawing.Point(193, 220);
+                this.textBoxCost.Name = "textBoxCost";
+                this.textBoxCost.Size = new System.Drawing.Size(120, 22);
+                this.textBoxCost.TabIndex = 6;
                 #endregion
 
 
@@ -364,15 +486,39 @@ namespace HotelReception
                 //this.tabPageRoomsAdmin.ResumeLayout(false);
                 //this.tabPageRoomsAdmin.PerformLayout();
                 
-
-
             }
             else
             {
                 buttonEditRent.Visible = false;
                 buttonDeleteRent.Visible = false;
             }
+            UpdateLists();
+        }
 
+        private void UpdateLists()
+        {
+            if (tabControlReception.SelectedIndex == 0)
+            {
+                SelectRents?.Invoke();
+            }
+            if (tabControlReception.SelectedIndex == 1)
+            {
+                SelectRooms?.Invoke();
+            }
+            if (tabControlReception.SelectedIndex == 2)
+            {
+                SelectEmployees?.Invoke();
+            }
+            if (tabControlReception.SelectedIndex == 3)
+            {
+                SelectRooms?.Invoke();
+            }
+        }
+
+        #region events
+        private void tabControlReception_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateLists();
         }
 
         private void FormReception_FormClosed(object sender, FormClosedEventArgs e)
@@ -386,25 +532,110 @@ namespace HotelReception
             }
         }
 
-        private void tabControlReception_SelectedIndexChanged(object sender, EventArgs e)
+        private void buttonAddRent_Click(object sender, EventArgs e)
         {
-            
-            if(tabControlReception.SelectedIndex == 0)
+            InsertRent?.Invoke(CurrentRent);
+            UpdateLists();
+        }
+
+        private void buttonEditRent_Click(object sender, EventArgs e)
+        {
+            UpdateRent?.Invoke(CurrentRent);
+            UpdateLists();
+        }
+
+        private void buttonDeleteRent_Click(object sender, EventArgs e)
+        {
+            if (listBoxRents.SelectedIndex != -1)
             {
-                Console.WriteLine("pierwszy");
+                Rent tmp = (Rent)listBoxRents.SelectedItem;
+                DeleteRent?.Invoke(tmp.Idroom, tmp.Start, tmp.End);
+                UpdateLists();
             }
-            if (tabControlReception.SelectedIndex == 1)
+            else MessageBox.Show("Wybierz wynajem z listy");
+        }
+
+        private void buttonFiltr_Click(object sender, EventArgs e)
+        {
+            SelectRoomsFilter?.Invoke((int)numericUpDownRooms1.Value,dateTimePickerRooms3.Value,dateTimePickerRooms4.Value,checkBoxRooms.Checked);
+        }
+
+        private void buttonDeleteEmployee_Click(object sender, EventArgs e)
+        {
+            if (listBoxEmployees.SelectedIndex != -1)
             {
-                Console.WriteLine("drugi");
+                Employee tmp = (Employee)listBoxEmployees.SelectedItem;
+                DeleteEmployee?.Invoke((int)tmp.Idworker);
+                UpdateLists();
             }
-            if (tabControlReception.SelectedIndex == 2)
+            else MessageBox.Show("Wybierz pracownika z listy");
+        }
+
+        private void buttonEditEmployee_Click(object sender, EventArgs e)
+        {
+            UpdateEmployee?.Invoke(CurrentEmployee);
+            UpdateLists();
+        }
+
+        private void buttonAddEmployee_Click(object sender, EventArgs e)
+        {
+            InsertEmployee?.Invoke(CurrentEmployee);
+            UpdateLists();
+        }
+
+        private void buttonDeleteRoom_Click(object sender, EventArgs e)
+        {
+            if (listBoxRooms.SelectedIndex != -1)
             {
-                Console.WriteLine("trzeci");
+                Room tmp = (Room)listBoxRoomsAdmin.SelectedItem;
+                DeleteRoom?.Invoke((int)tmp.Idroom);
+                UpdateLists();
             }
-            if (tabControlReception.SelectedIndex == 3)
+            else MessageBox.Show("Wybierz pokoj z listy");
+        }
+
+        private void buttonEditRoom_Click(object sender, EventArgs e)
+        {
+            UpdateRoom?.Invoke(CurrentRoom);
+            UpdateLists();
+        }
+
+        private void buttonAddRoom_Click(object sender, EventArgs e)
+        {
+            InsertRoom?.Invoke(CurrentRoom);
+            UpdateLists();
+        }
+
+        private void listBoxRents_Click(object sender, EventArgs e)
+        {
+            CurrentRent = (Rent)listBoxRents.SelectedItem;
+        }
+
+        private void listBoxEmployees_Click(object sender, EventArgs e)
+        {
+            CurrentEmployee = (Employee)listBoxEmployees.SelectedItem;
+        }
+
+        private void listBoxRoomsAdmin_Click(object sender, EventArgs e)
+        {
+            CurrentRoom = (Room)listBoxRoomsAdmin.SelectedItem;
+        }
+        #endregion
+
+        private void listBoxRooms_DoubleClick(object sender, EventArgs e)
+        {
+            if(listBoxRooms.SelectedIndex!=-1)
             {
-                Console.WriteLine("czwarty");
-                SelectEmployees?.Invoke();
+                tabControlReception.SelectedIndex = 0;
+                Rent tmp = new Rent();
+                CurrentRoom = (Room)listBoxRooms.SelectedItem;
+                tmp.Idroom = (int)currentRoom.Idroom;
+                tmp.Start = dateTimePickerRooms3.Value;
+                tmp.End = dateTimePickerRooms4.Value;
+                tmp.Firstname = "";
+                tmp.Lastname = "";
+                tmp.Phone = "";
+                CurrentRent = tmp;
             }
         }
     }

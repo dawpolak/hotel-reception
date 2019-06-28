@@ -78,24 +78,32 @@ namespace HotelReception
                                                $"guests = {guests} balcony = {balcony} " +
                                                $"and not('{start.ToShortDateString()}' <= p.end AND p.start <= '{end.ToShortDateString()}');");
         }
-        public void SelectRooms()
+        public List<Room> SelectRooms()
         {
             //metoda ma zwraca wszystkie pokoje
+            rooms.Clear();
             var result = database.ExecuteQuery("SELECT * FROM room");
-            //przykład
-            foreach(DataRowView row in result)
+            foreach (DataRowView row in result)
             {
-                Console.WriteLine(row["singlebeds"]);
+                rooms.Add(new Room(row));
             }
+            return rooms;
         }
-        public void SelectRental()
+        public List<Rent> SelectRental()
         {
             //zwraca wszsytkie wynajmy
+            rents.Clear();
             var result = database.ExecuteQuery("SELECT * FROM rental");
+            foreach (DataRowView row in result)
+            {
+                rents.Add(new Rent(row));
+            }
+            return rents;
         }
         public List<Employee> SelectEmployee()
         {
             //metoda ma zwracac wszystkich pracownikow 
+            employees.Clear();
             var result = database.ExecuteQuery("SELECT * FROM worker");
             foreach (DataRowView row in result)
             {
@@ -125,7 +133,7 @@ namespace HotelReception
         {
             //koszt sie zmieni w zaleznosci od cilosci dni
         }
-        public void DeleteRent(int id)
+        public void DeleteRent(int idroom, DateTime start, DateTime end)
         {
             //tych to raczej nie usuwamy tylko jakoś archiwizujemy
         }
