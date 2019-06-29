@@ -67,6 +67,8 @@ namespace HotelReception
         {
             Console.WriteLine("[PRESENTER] Insert employee: "+obj);
             //haslo tez leci w tym obiekcie ale sie nie wyswietla
+            model.InsertEmployee(obj);
+            view.Employees = model.SelectEmployee();
         }
 
         private void View_InsertRoom(Room obj)

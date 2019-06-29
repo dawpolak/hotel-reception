@@ -41,7 +41,7 @@ namespace HotelReception
         private DBConnection()
         {
             MySqlConnectionStringBuilder connStrBuilder = new MySqlConnectionStringBuilder();
-            connStrBuilder.Port = 3307;
+            connStrBuilder.Port = 3306;
             connStrBuilder.Server = "localhost";
             connStrBuilder.UserID = "root";
             connStrBuilder.Password = "root";

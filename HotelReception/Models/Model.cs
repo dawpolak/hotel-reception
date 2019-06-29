@@ -11,11 +11,24 @@ namespace HotelReception
     class Model
     {
         DBConnection database;
-        public string UserName { get; set; }
-        public bool IsAdmin { get; set; }
+        public string UserName
+        {
+            get
+            {
+                return CurrentUser.FirstName + " " + CurrentUser.LastName;
+            }
+        }
+        public bool IsAdmin
+        {
+            get
+            {
+                return CurrentUser.IsAdmin;
+            }
+        }
         List<Rent> rents = new List<Rent>();
         List<Room> rooms = new List<Room>();
         List<Employee> employees = new List<Employee>();
+        Employee CurrentUser;
 
         //do modelu maja dostep oba formy, wiec jak pierwszy wrzuci dane z logowania tutaj to drugi moze na nich pracowac
         #region FormLogin
@@ -39,8 +52,9 @@ namespace HotelReception
             var result = database.ExecuteQuery($"SELECT * FROM worker WHERE login='{login}' AND password='{HashPassword(password)}'");
             foreach (DataRowView row in result)
             {
-                UserName=row["firstname"].ToString()+" "+ row["lastname"].ToString();
-                if (Int32.Parse(row["isadmin"].ToString()) == 1) IsAdmin = true; else IsAdmin = false;
+                CurrentUser = new Employee(row);
+                //UserName=row["firstname"].ToString()+" "+ row["lastname"].ToString();
+                //if (Int32.Parse(row["isadmin"].ToString()) == 1) IsAdmin = true; else IsAdmin = false;
                 
             }
             return result.Count == 1;
@@ -137,10 +151,13 @@ namespace HotelReception
         {
             //tych to raczej nie usuwamy tylko jakoś archiwizujemy
         }
-        public void InsertEmployee(string firstname, string lastname, bool isAdmin, string phone, string login, string pass)
+        public void InsertEmployee(Employee employee)
         {
-            int result = database.ExecuteNonQuery($"INSERT INTO worker (idworker, firstname, lastname, isadmin, phone, login, password)" +
-                                                  $" VALUES ({null}, {firstname}, {lastname}, {isAdmin}, {phone}, {login}, {HashPassword(pass)})");
+            //nie podoba mie sie że w tym epmployee to jest bool a nie int
+            int isadmin = employee.IsAdmin == true ? 1 : 0;
+
+            int result = database.ExecuteNonQuery($"INSERT INTO worker (firstname, lastname, isadmin, phone, login, password)" +
+                                                  $" VALUES ('{employee.FirstName}', '{employee.LastName}', {isadmin}, '{employee.Phone}', '{employee.Login}', '{HashPassword(employee.Password)}')");
         }
         public void UpdateEmployee(int id, string imie, string nazwisko, bool isAdmin, string phone, string login, string pass)
         {
