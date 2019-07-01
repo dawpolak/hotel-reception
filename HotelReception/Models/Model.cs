@@ -149,7 +149,7 @@ namespace HotelReception
         public void InsertRent(Rent rent)
         {
             var result = database.ExecuteNonQuery($"INSERT INTO rental (start, end, idroom, idworker, firstname, lastname, phone)" +
-                                                  $" VALUES ('{start.ToString("yyyy-MM-dd")}', '{end.ToString("yyyy-MM-dd")}', {rent.Idroom}, {CurrentUser.Idworker}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
+                                                  $" VALUES ('{rent.Start.ToString("yyyy-MM-dd")}', '{rent.End.ToString("yyyy-MM-dd")}', {rent.Idroom}, {CurrentUser.Idworker}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
         }
         public void UpdateRent(int id, DateTime start, DateTime end, int idRoom, int idWorker, string imie, string nazwisko, string tel)
         {
