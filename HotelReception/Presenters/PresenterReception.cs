@@ -40,7 +40,7 @@ namespace HotelReception
         private void View_SelectRoomsFilter(int arg1, DateTime arg2, DateTime arg3, bool arg4)
         {
             Console.WriteLine("[PRESENTER] Select rooms with filters: " +arg1 + " | " + arg2 + " => " + arg3 + " | " + arg4);
-            //view.Rooms = model.SelectRooms(arg1,arg2,arg3,arg4);
+            view.Rooms = model.FilterRooms(arg1 ,arg2, arg3, arg4);
         }
 
         private void View_SelectRooms()
@@ -74,11 +74,15 @@ namespace HotelReception
         private void View_InsertRoom(Room obj)
         {
             Console.WriteLine("[PRESENTER] Insert room: " + obj);
+            model.InsertRoom(obj);
+            view.Rooms = model.SelectRooms();
         }
 
         private void View_InsertRent(Rent obj)
         {
             Console.WriteLine("[PRESENTER] Insert rent: " + obj);
+            model.InsertRent(obj);
+            view.Rents = model.SelectRental();
         }
         #endregion
 

@@ -53,8 +53,6 @@ namespace HotelReception
             foreach (DataRowView row in result)
             {
                 CurrentUser = new Employee(row);
-                //UserName=row["firstname"].ToString()+" "+ row["lastname"].ToString();
-                //if (Int32.Parse(row["isadmin"].ToString()) == 1) IsAdmin = true; else IsAdmin = false;
                 
             }
             return result.Count == 1;
@@ -84,13 +82,22 @@ namespace HotelReception
 
         //dodatkowo trzeba zrobic wyzwalacz ktory czy insercie i selectcie bedzie pilnowal wielkosci znakow( imiona i nazwiska z duzej reszta z malej)
         //myslalem o czyms takim co by usuwalo wynajmy starszy niz miesiac zeby baza nie puchła w nieskonczonosc 
-        public void SelectRooms(int guests, DateTime start, DateTime end, bool balcony)
+        public List<Room> FilterRooms(int guests, DateTime start, DateTime end, bool balcony)
         {
+            int b = balcony ? 1 : 0;
             //metoda ma zwracac liste pokoi ze wszystkimi parametrami spelniajace warunki z argumentow
-            var result = database.ExecuteQuery("select r.idroom from room r, rental p " +
+            var result = database.ExecuteQuery("select r.* from room r, rental p " +
                                                "where r.idroom = p.idroom and " +
-                                               $"guests = {guests} balcony = {balcony} " +
-                                               $"and not('{start.ToShortDateString()}' <= p.end AND p.start <= '{end.ToShortDateString()}');");
+                                               $"guests = {guests} and balcony = {b} " +
+                                               $"and not('{start.ToString("yyyy-MM-dd")}' <= p.end AND p.start <= '{end.ToString("yyyy-MM-dd")}')");
+            rooms.Clear();
+            Console.WriteLine(result.Count);
+            foreach (DataRowView row in result)
+            {
+                Console.WriteLine(row);
+                rooms.Add(new Room(row));
+            }
+            return rooms;
         }
         public List<Room> SelectRooms()
         {
@@ -125,11 +132,11 @@ namespace HotelReception
             }
             return employees;
         }
-        public void InsertRoom(int guests, int singleBeds, int doubleBeds, bool balcony, int cost)
+        public void InsertRoom(Room room)
         {
             //dodanie rooma 
-            var result = database.ExecuteNonQuery($"INSERT INTO room (idroom, guests, singlebeds, doublebeds, balcony, occupied, cost)" +
-                                                  $" VALUES ({null}, {guests}, {singleBeds}, {doubleBeds}, {balcony}, {0}, {cost})");
+            var result = database.ExecuteNonQuery($"INSERT INTO room (guests, singlebeds, doublebeds, balcony, occupied, cost)" +
+                                                  $" VALUES ({room.Guests}, {room.SingleBeds}, {room.DoubleBeds}, {room.Balcony}, {0}, {room.Cost})");
         }
         public void UpdateRoom(int id,int ileOsob, int ilePoje, int ilePodw, bool czyTaras, int koszt)
         {
@@ -139,9 +146,10 @@ namespace HotelReception
         {
             int result = database.ExecuteNonQuery($"DELETE FROM room WHERE idroom={id}");
         }
-        public void InsertRent(DateTime start, DateTime end, int idRoom, int idWorker, string imie, string nazwisko, string tel)
+        public void InsertRent(Rent rent)
         {
-
+            var result = database.ExecuteNonQuery($"INSERT INTO rental (start, end, idroom, idworker, firstname, lastname, phone)" +
+                                                  $" VALUES ('{start.ToString("yyyy-MM-dd")}', '{end.ToString("yyyy-MM-dd")}', {rent.Idroom}, {CurrentUser.Idworker}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
         }
         public void UpdateRent(int id, DateTime start, DateTime end, int idRoom, int idWorker, string imie, string nazwisko, string tel)
         {
