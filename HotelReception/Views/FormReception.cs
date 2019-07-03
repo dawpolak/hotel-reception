@@ -22,7 +22,7 @@ namespace HotelReception
         {
             get
             {
-                currentRoom.Idroom = null;
+                currentRoom.Idroom = (int)numericUpDownIdRoom.Value;
                 currentRoom.Guests = (int)numericUpDownGuests.Value;
                 currentRoom.SingleBeds =(int)numericUpDownSingleBeds.Value;
                 currentRoom.DoubleBeds = (int)numericUpDownDoubleBeds.Value;

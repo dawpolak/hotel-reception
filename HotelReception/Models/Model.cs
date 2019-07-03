@@ -86,10 +86,7 @@ namespace HotelReception
         {
             int b = balcony ? 1 : 0;
             //metoda ma zwracac liste pokoi ze wszystkimi parametrami spelniajace warunki z argumentow
-            var result = database.ExecuteQuery("select r.* from room r, rental p " +
-                                               "where r.idroom = p.idroom and " +
-                                               $"guests = {guests} and balcony = {b} " +
-                                               $"and not('{start.ToString("yyyy-MM-dd")}' <= p.end AND p.start <= '{end.ToString("yyyy-MM-dd")}')");
+            var result = database.ExecuteQuery($"SELECT * FROM room r where r.guests = {guests} and balcony = {b} and NOT EXISTS (SELECT * FROM rental p WHERE r.idroom=p.idroom and('{start.ToString("yyyy-MM-dd")}' <= p.end AND p.start <= '{end.ToString("yyyy-MM-dd")}'))");
             rooms.Clear();
             Console.WriteLine(result.Count);
             foreach (DataRowView row in result)
@@ -114,7 +111,7 @@ namespace HotelReception
         {
             //zwraca wszsytkie wynajmy
             rents.Clear();
-            var result = database.ExecuteQuery("SELECT * FROM rental");
+            var result = database.ExecuteQuery("SELECT * FROM rental WHERE archived=0");
             foreach (DataRowView row in result)
             {
                 rents.Add(new Rent(row));
@@ -125,7 +122,7 @@ namespace HotelReception
         {
             //metoda ma zwracac wszystkich pracownikow 
             employees.Clear();
-            var result = database.ExecuteQuery("SELECT * FROM worker");
+            var result = database.ExecuteQuery("SELECT * FROM worker WHERE archived=0");
             foreach (DataRowView row in result)
             {
                 employees.Add(new Employee(row));
@@ -135,8 +132,7 @@ namespace HotelReception
         public void InsertRoom(Room room)
         {
             //dodanie rooma 
-            var result = database.ExecuteNonQuery($"INSERT INTO room (guests, singlebeds, doublebeds, balcony, occupied, cost)" +
-                                                  $" VALUES ({room.Guests}, {room.SingleBeds}, {room.DoubleBeds}, {room.Balcony}, {0}, {room.Cost})");
+            var result = database.ExecuteNonQuery($"INSERT INTO room (idroom, guests, singlebeds, doublebeds, balcony, occupied, cost) VALUES ({room.Idroom}, {room.Guests}, {room.SingleBeds}, {room.DoubleBeds}, {room.Balcony}, {0}, {room.Cost})");
         }
         public void UpdateRoom(int id,int ileOsob, int ilePoje, int ilePodw, bool czyTaras, int koszt)
         {
@@ -148,8 +144,7 @@ namespace HotelReception
         }
         public void InsertRent(Rent rent)
         {
-            var result = database.ExecuteNonQuery($"INSERT INTO rental (start, end, idroom, idworker, firstname, lastname, phone)" +
-                                                  $" VALUES ('{rent.Start.ToString("yyyy-MM-dd")}', '{rent.End.ToString("yyyy-MM-dd")}', {rent.Idroom}, {CurrentUser.Idworker}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
+            var result = database.ExecuteNonQuery($"INSERT INTO rental (start, end, idroom, idworker, firstname, lastname, phone) VALUES ('{rent.Start.ToString("yyyy-MM-dd")}', '{rent.End.ToString("yyyy-MM-dd")}', {rent.Idroom}, {CurrentUser.Idworker}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
         }
         public void UpdateRent(int id, DateTime start, DateTime end, int idRoom, int idWorker, string imie, string nazwisko, string tel)
         {
