@@ -78,10 +78,10 @@ namespace HotelReception
             view.Rooms = model.SelectRooms();
         }
 
-        private void View_InsertRent(Rent obj)
+        private void View_InsertRent(Rent obj,int userId)
         {
             Console.WriteLine("[PRESENTER] Insert rent: " + obj);
-            model.InsertRent(obj);
+            model.InsertRent(obj,userId);
             view.Rents = model.SelectRental();
         }
         #endregion
@@ -126,6 +126,7 @@ namespace HotelReception
         {
             view.UserName = model.UserName;
             view.IfAdmin = model.IsAdmin;
+            view.UserId = (int)model.GetUserId;
         }
     }
 }

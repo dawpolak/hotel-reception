@@ -16,6 +16,7 @@ namespace HotelReception
         public string Phone { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public bool Archived { get; set; }
 
         public Employee() { }
 
@@ -25,8 +26,9 @@ namespace HotelReception
             this.FirstName = row["firstname"].ToString();
             this.LastName = row["lastname"].ToString();
             if (Int32.Parse(row["isadmin"].ToString()) == 1) this.IsAdmin = true; else this.IsAdmin = false;
-            this.Phone = row["phone"].ToString(); ;
-            this.Login = row["login"].ToString(); ;
+            this.Phone = row["phone"].ToString(); 
+            this.Login = row["login"].ToString();
+            if (Int32.Parse(row["archived"].ToString()) == 1) this.Archived = true; else this.Archived = false;
         }
 
         //public Employee(int? idworker, string firstName, string lastName, bool isAdmin, string phone, string login, string password)
@@ -42,7 +44,7 @@ namespace HotelReception
 
         public override string ToString()
         {
-            return $"{FirstName} | {LastName} | {IsAdmin} | {Phone} | {Login}";
+            return $"{FirstName} {LastName} | 🛠:{IsAdmin} | ☎:{Phone} | 💻: {Login}";
         }
 
     }

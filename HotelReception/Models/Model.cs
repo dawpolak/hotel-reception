@@ -25,6 +25,13 @@ namespace HotelReception
                 return CurrentUser.IsAdmin;
             }
         }
+        public int? GetUserId
+        {
+            get
+            {
+                return CurrentUser.Idworker;
+            }
+        }
         List<Rent> rents = new List<Rent>();
         List<Room> rooms = new List<Room>();
         List<Employee> employees = new List<Employee>();
@@ -55,9 +62,11 @@ namespace HotelReception
                 CurrentUser = new Employee(row);
                 
             }
-            return result.Count == 1;
+            if (result.Count == 1 && !CurrentUser.Archived) return true; else return false;
             
         }
+
+
 
         private string HashPassword(string password)
         {
@@ -142,9 +151,9 @@ namespace HotelReception
         {
             int result = database.ExecuteNonQuery($"DELETE FROM room WHERE idroom={id}");
         }
-        public void InsertRent(Rent rent)
+        public void InsertRent(Rent rent,int workerId)
         {
-            var result = database.ExecuteNonQuery($"INSERT INTO rental (start, end, idroom, idworker, firstname, lastname, phone) VALUES ('{rent.Start.ToString("yyyy-MM-dd")}', '{rent.End.ToString("yyyy-MM-dd")}', {rent.Idroom}, {CurrentUser.Idworker}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
+            var result = database.ExecuteNonQuery($"INSERT INTO rental (start, end, idroom, idworker, firstname, lastname, phone) VALUES ('{rent.Start.ToString("yyyy-MM-dd")}', '{rent.End.ToString("yyyy-MM-dd")}', {rent.Idroom}, {workerId}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
         }
         public void UpdateRent(int id, DateTime start, DateTime end, int idRoom, int idWorker, string imie, string nazwisko, string tel)
         {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace HotelReception
 {
@@ -16,7 +17,13 @@ namespace HotelReception
         {
             InitializeComponent();
         }
+
+        private string patternFirst = "^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ''-']{3,45}$";
+        private string patternLast = "^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ''-']{3,45}$";
+        private string patternPhone = "(?<!\\w)(\\(?(\\+|00)?48\\)?)?[ -]?\\d{3}[ -]?\\d{3}[ -]?\\d{3}(?!\\w)";
+
         #region Properties
+        public int UserId { get; set; }
         private Room currentRoom = new Room();
         private Room CurrentRoom
         {
@@ -28,7 +35,7 @@ namespace HotelReception
                 currentRoom.DoubleBeds = (int)numericUpDownDoubleBeds.Value;
                 currentRoom.Occupied = false;
                 currentRoom.Balcony = checkBoxBalcony.Checked;
-                currentRoom.Cost = Double.Parse(textBoxCost.Text);
+                currentRoom.Cost = (double)numericUpDownCost.Value;
 
 
                 return currentRoom;
@@ -41,7 +48,7 @@ namespace HotelReception
                 numericUpDownSingleBeds.Value = value.SingleBeds;
                 numericUpDownDoubleBeds.Value = value.DoubleBeds;
                 checkBoxBalcony.Checked = value.Balcony;
-                textBoxCost.Text = value.Cost.ToString();
+                numericUpDownCost.Value = (int)value.Cost;
             }
         }
         private Rent currentRent = new Rent();
@@ -75,10 +82,10 @@ namespace HotelReception
             get
             {
                 currentEmployee.Idworker = null;
-                currentEmployee.FirstName = textBoxFirstName.Text;
-                currentEmployee.LastName = textBoxLastName.Text;
+                currentEmployee.FirstName = textBoxFirstName.Text.Trim();
+                currentEmployee.LastName = textBoxLastName.Text.Trim();
                 currentEmployee.IsAdmin = checkBoxAdmin.Checked;
-                currentEmployee.Phone = textBoxPhone.Text;
+                currentEmployee.Phone = textBoxPhone.Text.Trim();
                 currentEmployee.Login = textBoxLogin.Text;
                 currentEmployee.Password = textBoxPassword.Text;
                 return currentEmployee;
@@ -133,7 +140,7 @@ namespace HotelReception
         public event Action SelectRooms;
         public event Action SelectRents;
 
-        public event Action<Rent> InsertRent;
+        public event Action<Rent,int> InsertRent;
         public event Action<Room> InsertRoom;
         public event Action<Employee> InsertEmployee;
         public event Action<Rent> UpdateRent;
@@ -187,9 +194,9 @@ namespace HotelReception
                 // 
                 this.listBoxEmployees.FormattingEnabled = true;
                 this.listBoxEmployees.ItemHeight = 16;
-                this.listBoxEmployees.Location = new System.Drawing.Point(280, 16);
+                this.listBoxEmployees.Location = new System.Drawing.Point(260, 16);
                 this.listBoxEmployees.Name = "listBox3";
-                this.listBoxEmployees.Size = new System.Drawing.Size(270, 270);
+                this.listBoxEmployees.Size = new System.Drawing.Size(315, 270);
                 this.listBoxEmployees.TabIndex = 0;
                 this.listBoxEmployees.Click += new System.EventHandler(this.listBoxEmployees_Click);
 
@@ -281,6 +288,7 @@ namespace HotelReception
                 // 
                 this.textBoxPassword.Location = new System.Drawing.Point(93, 60);
                 this.textBoxPassword.Name = "textBoxPassword";
+                this.textBoxPassword.PasswordChar = '*';
                 this.textBoxPassword.Size = new System.Drawing.Size(160, 22);
                 this.textBoxPassword.TabIndex = 11;
 
@@ -328,7 +336,7 @@ namespace HotelReception
                 this.tabPageRoomsAdmin.Controls.Add(this.label15);
                 this.tabPageRoomsAdmin.Controls.Add(this.label14);
                 this.tabPageRoomsAdmin.Controls.Add(this.labelCost);
-                this.tabPageRoomsAdmin.Controls.Add(this.textBoxCost);
+                this.tabPageRoomsAdmin.Controls.Add(this.numericUpDownCost);
                 this.tabPageRoomsAdmin.Controls.Add(this.checkBoxBalcony);
                 this.tabPageRoomsAdmin.Controls.Add(this.numericUpDownDoubleBeds);
                 this.tabPageRoomsAdmin.Controls.Add(this.numericUpDownSingleBeds);
@@ -422,9 +430,9 @@ namespace HotelReception
                 // 
                 this.listBoxRoomsAdmin.FormattingEnabled = true;
                 this.listBoxRoomsAdmin.ItemHeight = 16;
-                this.listBoxRoomsAdmin.Location = new System.Drawing.Point(324, 10);
+                this.listBoxRoomsAdmin.Location = new System.Drawing.Point(320, 10);
                 this.listBoxRoomsAdmin.Name = "listBox4";
-                this.listBoxRoomsAdmin.Size = new System.Drawing.Size(230, 270);
+                this.listBoxRoomsAdmin.Size = new System.Drawing.Size(255, 270);
                 this.listBoxRoomsAdmin.TabIndex = 0;
                 this.listBoxRoomsAdmin.Click += new System.EventHandler(this.listBoxRoomsAdmin_Click);
                 // 
@@ -466,12 +474,16 @@ namespace HotelReception
                 this.checkBoxBalcony.Text = "Taras";
                 this.checkBoxBalcony.UseVisualStyleBackColor = true;
                 // 
-                // textBoxCost
+                // numericUpDownCost
                 // 
-                this.textBoxCost.Location = new System.Drawing.Point(193, 220);
-                this.textBoxCost.Name = "textBoxCost";
-                this.textBoxCost.Size = new System.Drawing.Size(120, 22);
-                this.textBoxCost.TabIndex = 6;
+                this.numericUpDownCost.Location = new System.Drawing.Point(193, 220);
+                this.numericUpDownCost.Name = "textBoxCost";
+                this.numericUpDownCost.Size = new System.Drawing.Size(120, 22);
+                this.numericUpDownCost.TabIndex = 6;
+                this.numericUpDownCost.Increment = 10;
+                this.numericUpDownCost.Value = 100;
+                this.numericUpDownCost.Minimum = 0;
+                this.numericUpDownCost.Maximum = 500;
                 #endregion
 
 
@@ -503,7 +515,7 @@ namespace HotelReception
             }
             if (tabControlReception.SelectedIndex == 1)
             {
-                SelectRooms?.Invoke();
+                //SelectRooms?.Invoke();
             }
             if (tabControlReception.SelectedIndex == 2)
             {
@@ -534,14 +546,43 @@ namespace HotelReception
 
         private void buttonAddRent_Click(object sender, EventArgs e)
         {
-            InsertRent?.Invoke(CurrentRent);
-            UpdateLists();
+            errorProviderFirst.Clear();
+            errorProviderLast.Clear();
+            errorProviderPhone.Clear();
+
+            if (Regex.IsMatch(textBoxClientFirstName.Text, patternFirst) && Regex.IsMatch(textBoxClientSecondName.Text, patternLast) && Regex.IsMatch(textBoxClientPhone.Text, patternPhone))
+            {
+                if (dateTimePickerRent1.Value == dateTimePickerRent2.Value || dateTimePickerRent1.Value < dateTimePickerRent2.Value)
+                {
+                    InsertRent?.Invoke(CurrentRent, UserId);
+                    UpdateLists();
+                }
+                else MessageBox.Show("Podany zakres dat jest niepoprawny");
+                
+            }else
+            {
+                if (!Regex.IsMatch(textBoxClientFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxClientFirstName, "Niedozwolone znaki w imieniu");
+                if (!Regex.IsMatch(textBoxClientSecondName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxClientSecondName, "Niedozwolone znaki w nazwisku");
+                if (!Regex.IsMatch(textBoxClientPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxClientPhone, "Niedozwolone znaki w numerze telefonu");
+            }
         }
 
         private void buttonEditRent_Click(object sender, EventArgs e)
         {
-            UpdateRent?.Invoke(CurrentRent);
-            UpdateLists();
+            errorProviderFirst.Clear();
+            errorProviderLast.Clear();
+            errorProviderPhone.Clear();
+            if (Regex.IsMatch(textBoxClientFirstName.Text, patternFirst) && Regex.IsMatch(textBoxClientSecondName.Text, patternLast) && Regex.IsMatch(textBoxClientPhone.Text, patternPhone))
+            {
+                UpdateRent?.Invoke(CurrentRent);
+                UpdateLists();
+            }
+            else
+            {
+                if (!Regex.IsMatch(textBoxClientFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxClientFirstName, "Niedozwolone znaki w imieniu");
+                if (!Regex.IsMatch(textBoxClientSecondName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxClientSecondName, "Niedozwolone znaki w nazwisku");
+                if (!Regex.IsMatch(textBoxClientPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxClientPhone, "Niedozwolone znaki w numerze telefonu");
+            }
         }
 
         private void buttonDeleteRent_Click(object sender, EventArgs e)
@@ -557,7 +598,12 @@ namespace HotelReception
 
         private void buttonFiltr_Click(object sender, EventArgs e)
         {
-            SelectRoomsFilter?.Invoke((int)numericUpDownRooms1.Value,dateTimePickerRooms3.Value,dateTimePickerRooms4.Value,checkBoxRooms.Checked);
+            if (dateTimePickerRooms3.Value == dateTimePickerRooms4.Value || dateTimePickerRooms3.Value < dateTimePickerRooms4.Value)
+            {
+                SelectRoomsFilter?.Invoke((int)numericUpDownRooms1.Value, dateTimePickerRooms3.Value, dateTimePickerRooms4.Value, checkBoxRooms.Checked);
+            }
+            else MessageBox.Show("Podany zakres dat jest niepoprawny");
+            
         }
 
         private void buttonDeleteEmployee_Click(object sender, EventArgs e)
@@ -573,14 +619,41 @@ namespace HotelReception
 
         private void buttonEditEmployee_Click(object sender, EventArgs e)
         {
-            UpdateEmployee?.Invoke(CurrentEmployee);
-            UpdateLists();
+            
+            errorProviderFirst.Clear();
+            errorProviderLast.Clear();
+            errorProviderPhone.Clear();
+            if (Regex.IsMatch(textBoxFirstName.Text, patternFirst) && Regex.IsMatch(textBoxLastName.Text, patternLast) && Regex.IsMatch(textBoxPhone.Text, patternPhone))
+            { 
+                UpdateEmployee?.Invoke(CurrentEmployee);
+                UpdateLists();
+            }
+            else
+            {
+                if (!Regex.IsMatch(textBoxFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxFirstName, "Niedozwolone znaki w imieniu");
+                if (!Regex.IsMatch(textBoxLastName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxLastName, "Niedozwolone znaki w nazwisku");
+                if (!Regex.IsMatch(textBoxPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxPhone, "Niedozwolone znaki w numerze telefonu");
+            }
         }
 
         private void buttonAddEmployee_Click(object sender, EventArgs e)
         {
-            InsertEmployee?.Invoke(CurrentEmployee);
-            UpdateLists();
+
+            
+            errorProviderFirst.Clear();
+            errorProviderLast.Clear();
+            errorProviderPhone.Clear();
+            if (Regex.IsMatch(textBoxFirstName.Text, patternFirst) && Regex.IsMatch(textBoxLastName.Text, patternLast) && Regex.IsMatch(textBoxPhone.Text, patternPhone))
+            {
+                InsertEmployee?.Invoke(CurrentEmployee);
+                UpdateLists();
+            }
+            else
+            {
+                if (!Regex.IsMatch(textBoxFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxFirstName, "Niedozwolone znaki w imieniu");
+                if (!Regex.IsMatch(textBoxLastName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxLastName, "Niedozwolone znaki w nazwisku");
+                if (!Regex.IsMatch(textBoxPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxPhone, "Niedozwolone znaki w numerze telefonu");
+            }
         }
 
         private void buttonDeleteRoom_Click(object sender, EventArgs e)
@@ -602,29 +675,50 @@ namespace HotelReception
 
         private void buttonAddRoom_Click(object sender, EventArgs e)
         {
-            InsertRoom?.Invoke(CurrentRoom);
-            UpdateLists();
+            
+
+            errorProviderFirst.Clear();
+            errorProviderLast.Clear();
+            errorProviderPhone.Clear();
+
+            if ((numericUpDownDoubleBeds.Value*2)+numericUpDownSingleBeds.Value==numericUpDownGuests.Value)
+            {
+                InsertRoom?.Invoke(CurrentRoom);
+                UpdateLists();
+            }
+            else
+            {
+                errorProviderFirst.SetError(numericUpDownGuests, "Liczba gosci powinna wynosic"+ ((numericUpDownDoubleBeds.Value * 2) + numericUpDownSingleBeds.Value));
+            }
         }
 
         private void listBoxRents_Click(object sender, EventArgs e)
         {
-            CurrentRent = (Rent)listBoxRents.SelectedItem;
+            if (listBoxRents.SelectedIndex != -1)
+            {
+                CurrentRent = (Rent)listBoxRents.SelectedItem;
+            }
         }
 
         private void listBoxEmployees_Click(object sender, EventArgs e)
         {
-            CurrentEmployee = (Employee)listBoxEmployees.SelectedItem;
+            if (listBoxEmployees.SelectedIndex != -1)
+            {
+                    CurrentEmployee = (Employee)listBoxEmployees.SelectedItem;
+            }
         }
 
         private void listBoxRoomsAdmin_Click(object sender, EventArgs e)
         {
-            CurrentRoom = (Room)listBoxRoomsAdmin.SelectedItem;
+            if (listBoxRoomsAdmin.SelectedIndex != -1)
+            {
+                CurrentRoom = (Room)listBoxRoomsAdmin.SelectedItem;
+            }
         }
-        #endregion
 
         private void listBoxRooms_DoubleClick(object sender, EventArgs e)
         {
-            if(listBoxRooms.SelectedIndex!=-1)
+            if (listBoxRooms.SelectedIndex != -1)
             {
                 tabControlReception.SelectedIndex = 0;
                 Rent tmp = new Rent();
@@ -638,5 +732,8 @@ namespace HotelReception
                 CurrentRent = tmp;
             }
         }
+        #endregion
+
+
     }
 }

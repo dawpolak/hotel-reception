@@ -32,7 +32,7 @@ namespace HotelReception
 
         public override string ToString()
         {
-            return $"{Idroom} | {Guests} | {SingleBeds} | {DoubleBeds} | {Balcony} | {Cost}";
+            return $"🔑: {Idroom} | 👨‍👩‍👧‍👦: {Guests} | 🛌: {SingleBeds} | 🛌👫: {DoubleBeds} | 🤸‍♂️: {Balcony} | 💰: {Cost}";
         }
     }
 }

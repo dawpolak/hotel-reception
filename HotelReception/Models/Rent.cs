@@ -23,7 +23,7 @@ namespace HotelReception
         {
             this.Start = (DateTime)row["start"];
             this.End = (DateTime)row["end"];
-            this.Cost = (double)row["cost"];
+            //this.Cost = (double)row["cost"];
             this.Idroom = (int)row["idroom"];
             this.Worker = row["idworker"].ToString();
             this.Firstname = row["firstname"].ToString();
@@ -33,7 +33,8 @@ namespace HotelReception
 
         public override string ToString()
         {
-            return $"{Idroom} | {Start.ToString("yyyy-MM-dd")} | {End.ToString("yyyy-MM-dd")} | {Cost} |  {Worker} | {Firstname} {Lastname} | {Phone}";
+           // return $"🔑:{Idroom} | Od:{Start.ToString("yyyy-MM-dd")} | Do:{End.ToString("yyyy-MM-dd")} | 💲:{Cost} |  💁‍♂️:{Worker} | 👨‍👩‍👧‍👦:{Firstname} {Lastname} | {Phone}";
+           return $"🔑:{Idroom} | Od:{Start.ToString("dd-MM")} | Do:{End.ToString("dd-MM")} | 💲:{Cost} | {Worker} | {Firstname} {Lastname} | {Phone}";
         }
     }
 }

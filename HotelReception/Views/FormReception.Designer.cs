@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControlReception = new System.Windows.Forms.TabControl();
             this.tabPageRent = new System.Windows.Forms.TabPage();
             this.numericUpDownRentRoom = new System.Windows.Forms.NumericUpDown();
@@ -77,7 +78,7 @@
             this.numericUpDownSingleBeds = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownDoubleBeds = new System.Windows.Forms.NumericUpDown();
             this.checkBoxBalcony = new System.Windows.Forms.CheckBox();
-            this.textBoxCost = new System.Windows.Forms.TextBox();
+            this.numericUpDownCost = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -89,6 +90,9 @@
             this.buttonDeleteEmployee = new System.Windows.Forms.Button();
             this.buttonEditEmployee = new System.Windows.Forms.Button();
             this.buttonAddEmployee = new System.Windows.Forms.Button();
+            this.errorProviderFirst = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProviderLast = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProviderPhone = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControlReception.SuspendLayout();
             this.tabPageRent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRentRoom)).BeginInit();
@@ -98,6 +102,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIdRoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSingleBeds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDoubleBeds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderFirst)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderLast)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderPhone)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlReception
@@ -108,7 +116,7 @@
             this.tabControlReception.Margin = new System.Windows.Forms.Padding(4);
             this.tabControlReception.Name = "tabControlReception";
             this.tabControlReception.SelectedIndex = 0;
-            this.tabControlReception.Size = new System.Drawing.Size(768, 388);
+            this.tabControlReception.Size = new System.Drawing.Size(780, 388);
             this.tabControlReception.TabIndex = 0;
             this.tabControlReception.SelectedIndexChanged += new System.EventHandler(this.tabControlReception_SelectedIndexChanged);
             // 
@@ -135,14 +143,14 @@
             this.tabPageRent.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageRent.Name = "tabPageRent";
             this.tabPageRent.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageRent.Size = new System.Drawing.Size(760, 359);
+            this.tabPageRent.Size = new System.Drawing.Size(772, 359);
             this.tabPageRent.TabIndex = 0;
             this.tabPageRent.Text = "Wynajem";
             this.tabPageRent.UseVisualStyleBackColor = true;
             // 
             // numericUpDownRentRoom
             // 
-            this.numericUpDownRentRoom.Location = new System.Drawing.Point(135, 11);
+            this.numericUpDownRentRoom.Location = new System.Drawing.Point(120, 11);
             this.numericUpDownRentRoom.Name = "numericUpDownRentRoom";
             this.numericUpDownRentRoom.Size = new System.Drawing.Size(120, 22);
             this.numericUpDownRentRoom.TabIndex = 19;
@@ -150,7 +158,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(28, 272);
+            this.label3.Location = new System.Drawing.Point(13, 272);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 17);
             this.label3.TabIndex = 18;
@@ -159,7 +167,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 236);
+            this.label2.Location = new System.Drawing.Point(13, 236);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 17);
             this.label2.TabIndex = 17;
@@ -168,7 +176,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 208);
+            this.label1.Location = new System.Drawing.Point(15, 208);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 17);
             this.label1.TabIndex = 16;
@@ -176,21 +184,21 @@
             // 
             // textBoxClientFirstName
             // 
-            this.textBoxClientFirstName.Location = new System.Drawing.Point(112, 205);
+            this.textBoxClientFirstName.Location = new System.Drawing.Point(97, 205);
             this.textBoxClientFirstName.Name = "textBoxClientFirstName";
             this.textBoxClientFirstName.Size = new System.Drawing.Size(174, 22);
             this.textBoxClientFirstName.TabIndex = 15;
             // 
             // textBoxClientPhone
             // 
-            this.textBoxClientPhone.Location = new System.Drawing.Point(112, 272);
+            this.textBoxClientPhone.Location = new System.Drawing.Point(97, 272);
             this.textBoxClientPhone.Name = "textBoxClientPhone";
             this.textBoxClientPhone.Size = new System.Drawing.Size(174, 22);
             this.textBoxClientPhone.TabIndex = 14;
             // 
             // textBoxClientSecondName
             // 
-            this.textBoxClientSecondName.Location = new System.Drawing.Point(112, 236);
+            this.textBoxClientSecondName.Location = new System.Drawing.Point(97, 236);
             this.textBoxClientSecondName.Name = "textBoxClientSecondName";
             this.textBoxClientSecondName.Size = new System.Drawing.Size(174, 22);
             this.textBoxClientSecondName.TabIndex = 13;
@@ -228,7 +236,7 @@
             // labelRent4
             // 
             this.labelRent4.AutoSize = true;
-            this.labelRent4.Location = new System.Drawing.Point(24, 13);
+            this.labelRent4.Location = new System.Drawing.Point(9, 13);
             this.labelRent4.Name = "labelRent4";
             this.labelRent4.Size = new System.Drawing.Size(96, 17);
             this.labelRent4.TabIndex = 7;
@@ -237,7 +245,7 @@
             // labelRent3
             // 
             this.labelRent3.AutoSize = true;
-            this.labelRent3.Location = new System.Drawing.Point(24, 92);
+            this.labelRent3.Location = new System.Drawing.Point(9, 92);
             this.labelRent3.Name = "labelRent3";
             this.labelRent3.Size = new System.Drawing.Size(92, 17);
             this.labelRent3.TabIndex = 5;
@@ -246,7 +254,7 @@
             // labelRent2
             // 
             this.labelRent2.AutoSize = true;
-            this.labelRent2.Location = new System.Drawing.Point(24, 38);
+            this.labelRent2.Location = new System.Drawing.Point(9, 38);
             this.labelRent2.Name = "labelRent2";
             this.labelRent2.Size = new System.Drawing.Size(103, 17);
             this.labelRent2.TabIndex = 4;
@@ -254,14 +262,14 @@
             // 
             // dateTimePickerRent2
             // 
-            this.dateTimePickerRent2.Location = new System.Drawing.Point(27, 112);
+            this.dateTimePickerRent2.Location = new System.Drawing.Point(12, 112);
             this.dateTimePickerRent2.Name = "dateTimePickerRent2";
             this.dateTimePickerRent2.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerRent2.TabIndex = 3;
             // 
             // dateTimePickerRent1
             // 
-            this.dateTimePickerRent1.Location = new System.Drawing.Point(27, 58);
+            this.dateTimePickerRent1.Location = new System.Drawing.Point(12, 58);
             this.dateTimePickerRent1.Name = "dateTimePickerRent1";
             this.dateTimePickerRent1.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerRent1.TabIndex = 2;
@@ -279,9 +287,9 @@
             // 
             this.listBoxRents.FormattingEnabled = true;
             this.listBoxRents.ItemHeight = 16;
-            this.listBoxRents.Location = new System.Drawing.Point(301, 24);
+            this.listBoxRents.Location = new System.Drawing.Point(294, 24);
             this.listBoxRents.Name = "listBoxRents";
-            this.listBoxRents.Size = new System.Drawing.Size(452, 308);
+            this.listBoxRents.Size = new System.Drawing.Size(471, 308);
             this.listBoxRents.TabIndex = 0;
             this.listBoxRents.Click += new System.EventHandler(this.listBoxRents_Click);
             // 
@@ -300,7 +308,7 @@
             this.tabPageRooms.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageRooms.Name = "tabPageRooms";
             this.tabPageRooms.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageRooms.Size = new System.Drawing.Size(760, 359);
+            this.tabPageRooms.Size = new System.Drawing.Size(772, 359);
             this.tabPageRooms.TabIndex = 1;
             this.tabPageRooms.Text = "Pokoje";
             this.tabPageRooms.UseVisualStyleBackColor = true;
@@ -534,12 +542,12 @@
             this.checkBoxBalcony.Size = new System.Drawing.Size(104, 24);
             this.checkBoxBalcony.TabIndex = 0;
             // 
-            // textBoxCost
+            // numericUpDownCost
             // 
-            this.textBoxCost.Location = new System.Drawing.Point(0, 0);
-            this.textBoxCost.Name = "textBoxCost";
-            this.textBoxCost.Size = new System.Drawing.Size(100, 22);
-            this.textBoxCost.TabIndex = 0;
+            this.numericUpDownCost.Location = new System.Drawing.Point(0, 0);
+            this.numericUpDownCost.Name = "numericUpDownCost";
+            this.numericUpDownCost.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDownCost.TabIndex = 0;
             // 
             // label14
             // 
@@ -618,6 +626,18 @@
             this.buttonAddEmployee.Size = new System.Drawing.Size(75, 23);
             this.buttonAddEmployee.TabIndex = 0;
             // 
+            // errorProviderFirst
+            // 
+            this.errorProviderFirst.ContainerControl = this;
+            // 
+            // errorProviderLast
+            // 
+            this.errorProviderLast.ContainerControl = this;
+            // 
+            // errorProviderPhone
+            // 
+            this.errorProviderPhone.ContainerControl = this;
+            // 
             // FormReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -642,6 +662,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIdRoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSingleBeds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDoubleBeds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderFirst)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderLast)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderPhone)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -690,7 +714,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBoxCost;
+        private System.Windows.Forms.NumericUpDown numericUpDownCost;
         private System.Windows.Forms.CheckBox checkBoxBalcony;
         private System.Windows.Forms.NumericUpDown numericUpDownDoubleBeds;
         private System.Windows.Forms.NumericUpDown numericUpDownSingleBeds;
@@ -712,5 +736,8 @@
         private System.Windows.Forms.TextBox textBoxClientSecondName;
         private System.Windows.Forms.Button buttonFiltr;
         private System.Windows.Forms.NumericUpDown numericUpDownRentRoom;
+        private System.Windows.Forms.ErrorProvider errorProviderFirst;
+        private System.Windows.Forms.ErrorProvider errorProviderLast;
+        private System.Windows.Forms.ErrorProvider errorProviderPhone;
     }
 }

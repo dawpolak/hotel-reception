@@ -9,6 +9,7 @@ namespace HotelReception
     interface IReception
     {
         string UserName { set; }
+        int UserId{ set; get; }
         bool IfAdmin { set; get; }
         List<Employee> Employees { set; }
         List<Rent> Rents { set; }
@@ -20,7 +21,7 @@ namespace HotelReception
         event Action<int, DateTime, DateTime, bool> SelectRoomsFilter;
         event Action SelectRents;
 
-        event Action<Rent> InsertRent;
+        event Action<Rent,int> InsertRent;
         event Action<Room> InsertRoom;
         event Action<Employee> InsertEmployee;
 
