@@ -90,17 +90,22 @@ namespace HotelReception
         private void View_UpdateRoom(Room obj)
         {
             Console.WriteLine("[PRESENTER] Update room: " + obj);
+            model.UpdateRoom(obj);
+            view.Rooms = model.SelectRooms();
         }
 
         private void View_UpdateRent(Rent obj)
         {
             Console.WriteLine("[PRESENTER] Update rent: " + obj);
+            model.UpdateRent(obj);
+            view.Rents = model.SelectRental();
         }
 
         private void View_UpdateEmployee(Employee obj)
         {
             Console.WriteLine("[PRESENTER] Update employee: " + obj);
-            //haslo tez leci w tym obiekcie ale sie nie wyswietla
+            model.UpdateEmployee(obj);
+            view.Employees = model.SelectEmployee();
         }
         #endregion
 
@@ -108,16 +113,22 @@ namespace HotelReception
         private void View_DeleteRoom(int obj)
         {
             Console.WriteLine("[PRESENTER] Delete room id: " + obj);
+            model.DeleteRoom(obj);
+            view.Rooms = model.SelectRooms();
         }
 
         private void View_DeleteRent(int arg1, DateTime arg2, DateTime arg3)
         {
             Console.WriteLine("[PRESENTER] Delete rent roomId: " + arg1 + " | " + arg2 + " => " + arg3 );
+            model.DeleteRent(arg1, arg2, arg3);
+            view.Rents = model.SelectRental();
         }
 
         private void View_DeleteEmployee(int obj)
         {
             Console.WriteLine("[PRESENTER] Delete employee id: " + obj);
+            model.DeleteEmployee(obj);
+            view.Employees = model.SelectEmployee();
         }
         #endregion
 

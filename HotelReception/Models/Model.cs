@@ -91,6 +91,7 @@ namespace HotelReception
 
         //dodatkowo trzeba zrobic wyzwalacz ktory czy insercie i selectcie bedzie pilnowal wielkosci znakow( imiona i nazwiska z duzej reszta z malej)
         //myslalem o czyms takim co by usuwalo wynajmy starszy niz miesiac zeby baza nie puchła w nieskonczonosc 
+        #region Select
         public List<Room> FilterRooms(int guests, DateTime start, DateTime end, bool balcony)
         {
             int b = balcony ? 1 : 0;
@@ -109,7 +110,7 @@ namespace HotelReception
         {
             //metoda ma zwraca wszystkie pokoje
             rooms.Clear();
-            var result = database.ExecuteQuery("SELECT * FROM room");
+            var result = database.ExecuteQuery("SELECT * FROM room WHERE archived=0");
             foreach (DataRowView row in result)
             {
                 rooms.Add(new Room(row));
@@ -138,48 +139,62 @@ namespace HotelReception
             }
             return employees;
         }
+        #endregion
+        #region Insert
         public void InsertRoom(Room room)
         {
             //dodanie rooma 
-            var result = database.ExecuteNonQuery($"INSERT INTO room (idroom, guests, singlebeds, doublebeds, balcony, occupied, cost) VALUES ({room.Idroom}, {room.Guests}, {room.SingleBeds}, {room.DoubleBeds}, {room.Balcony}, {0}, {room.Cost})");
+            var result = database.ExecuteNonQuery($"INSERT INTO room (idroom, guests, singlebeds, doublebeds, balcony, cost) VALUES ({room.Idroom}, {room.Guests}, {room.SingleBeds}, {room.DoubleBeds}, {room.Balcony}, {room.Cost})");
         }
-        public void UpdateRoom(int id,int ileOsob, int ilePoje, int ilePodw, bool czyTaras, int koszt)
-        {
-            //cala reszta chyba wiadomo o co chodzi 
-        }
-        public void DeleteRoom(int id)
-        {
-            int result = database.ExecuteNonQuery($"DELETE FROM room WHERE idroom={id}");
-        }
-        public void InsertRent(Rent rent,int workerId)
+        public void InsertRent(Rent rent, int workerId)
         {
             var result = database.ExecuteNonQuery($"INSERT INTO rental (start, end, idroom, idworker, firstname, lastname, phone) VALUES ('{rent.Start.ToString("yyyy-MM-dd")}', '{rent.End.ToString("yyyy-MM-dd")}', {rent.Idroom}, {workerId}, '{rent.Firstname}', '{rent.Lastname}', '{rent.Phone}')");
         }
-        public void UpdateRent(int id, DateTime start, DateTime end, int idRoom, int idWorker, string imie, string nazwisko, string tel)
+        public void InsertEmployee(Employee employee)
         {
-            //koszt sie zmieni w zaleznosci od cilosci dni
+            int result = database.ExecuteNonQuery($"INSERT INTO worker (firstname, lastname, isadmin, phone, login, password)" +
+                                                  $" VALUES ('{employee.FirstName}', '{employee.LastName}', {employee.IsAdmin}, '{employee.Phone}', '{employee.Login}', '{HashPassword(employee.Password)}')");
+        }
+        #endregion
+        #region Update
+        public void UpdateRoom(Room room)
+        {
+            //int balcony = room.Balcony == true ? 1 : 0;
+            var result = database.ExecuteNonQuery($"UPDATE room SET guests={room.Guests}, singlebeds={room.SingleBeds}, doublebeds={room.DoubleBeds}, balcony={room.Balcony}, cost={room.Cost} WHERE idroom={room.Idroom}");
+        }
+        public void UpdateRent(Rent rent)
+        {
+            var result = database.ExecuteNonQuery($"UPDATE rental SET end='{rent.End.ToString("yyyy-MM-dd")}', idroom={rent.Idroom}, idworker={CurrentUser.Idworker}, firstname='{rent.Firstname}', lastname='{rent.Lastname}', phone='{rent.Phone}' WHERE (start='{rent.Start.ToString("yyyy-MM-dd")}' AND idroom={rent.Idroom})");
+        }
+        public void UpdateEmployee(Employee employee)
+        {
+            if (employee.Password != "")
+            {
+                int result = database.ExecuteNonQuery($"UPDATE worker SET firstname='{employee.FirstName}', lastname='{employee.LastName}', isadmin={employee.IsAdmin}, phone='{employee.Phone}', password='{HashPassword(employee.Password)}')" +
+                                                      $" WHERE login='{employee.Login}'");
+            }
+            else
+            {
+                int result = database.ExecuteNonQuery($"UPDATE worker SET firstname='{employee.FirstName}', lastname='{employee.LastName}', isadmin={employee.IsAdmin}, phone='{employee.Phone}'" +
+                                      $" WHERE login='{employee.Login}'");
+            }
+        }
+        #endregion
+        #region Delete
+        public void DeleteRoom(int id)
+        {
+            int result = database.ExecuteNonQuery($"UPDATE room SET archived=1 WHERE idroom={id}");
         }
         public void DeleteRent(int idroom, DateTime start, DateTime end)
         {
-            //tych to raczej nie usuwamy tylko jakoś archiwizujemy
-        }
-        public void InsertEmployee(Employee employee)
-        {
-            //nie podoba mie sie że w tym epmployee to jest bool a nie int
-            int isadmin = employee.IsAdmin == true ? 1 : 0;
-
-            int result = database.ExecuteNonQuery($"INSERT INTO worker (firstname, lastname, isadmin, phone, login, password)" +
-                                                  $" VALUES ('{employee.FirstName}', '{employee.LastName}', {isadmin}, '{employee.Phone}', '{employee.Login}', '{HashPassword(employee.Password)}')");
-        }
-        public void UpdateEmployee(int id, string imie, string nazwisko, bool isAdmin, string phone, string login, string pass)
-        {
-
+            int result = database.ExecuteNonQuery($"UPDATE rental SET archived=1 WHERE idroom={idroom} and start='{start.ToString("yyyy-MM-dd")}'");
         }
         public void DeleteEmployee(int id)
         {
-            //tutaj też nie wiem czy nie lepiej archiwizować
+            int result = database.ExecuteNonQuery($"UPDATE worker SET archived=1 WHERE idworker={id}");
         }
         #endregion
-        
+        #endregion
+
     }
 }

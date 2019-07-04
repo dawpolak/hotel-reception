@@ -14,7 +14,7 @@ namespace HotelReception
         public int SingleBeds { get; set; }
         public int DoubleBeds { get; set; }
         public bool Balcony { get; set; }
-        public bool Occupied { get; set; }
+        public bool Archived { get; set; }
         public double Cost { get; set; }
 
         public Room() { }
@@ -26,7 +26,7 @@ namespace HotelReception
             this.SingleBeds = (int)row["singleBeds"];
             this.DoubleBeds = (int)row["doubleBeds"];
             if (Int32.Parse(row["balcony"].ToString()) == 1) this.Balcony = true; else this.Balcony = false;
-            if (Int32.Parse(row["occupied"].ToString()) == 1) this.Occupied = true; else this.Occupied = false;
+            if (Int32.Parse(row["archived"].ToString()) == 1) this.Archived = true; else this.Archived = false;
             this.Cost = (double)row["cost"]; 
         }
 

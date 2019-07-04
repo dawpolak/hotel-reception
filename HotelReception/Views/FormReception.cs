@@ -33,7 +33,7 @@ namespace HotelReception
                 currentRoom.Guests = (int)numericUpDownGuests.Value;
                 currentRoom.SingleBeds =(int)numericUpDownSingleBeds.Value;
                 currentRoom.DoubleBeds = (int)numericUpDownDoubleBeds.Value;
-                currentRoom.Occupied = false;
+                currentRoom.Archived = false;
                 currentRoom.Balcony = checkBoxBalcony.Checked;
                 currentRoom.Cost = (double)numericUpDownCost.Value;
 
@@ -658,7 +658,7 @@ namespace HotelReception
 
         private void buttonDeleteRoom_Click(object sender, EventArgs e)
         {
-            if (listBoxRooms.SelectedIndex != -1)
+            if (listBoxRoomsAdmin.SelectedIndex != -1)
             {
                 Room tmp = (Room)listBoxRoomsAdmin.SelectedItem;
                 DeleteRoom?.Invoke((int)tmp.Idroom);
