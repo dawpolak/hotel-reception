@@ -150,6 +150,7 @@
             // 
             // numericUpDownRentRoom
             // 
+            this.numericUpDownRentRoom.Enabled = false;
             this.numericUpDownRentRoom.Location = new System.Drawing.Point(120, 11);
             this.numericUpDownRentRoom.Name = "numericUpDownRentRoom";
             this.numericUpDownRentRoom.Size = new System.Drawing.Size(120, 22);
@@ -262,6 +263,7 @@
             // 
             // dateTimePickerRent2
             // 
+            this.dateTimePickerRent2.Enabled = false;
             this.dateTimePickerRent2.Location = new System.Drawing.Point(12, 112);
             this.dateTimePickerRent2.Name = "dateTimePickerRent2";
             this.dateTimePickerRent2.Size = new System.Drawing.Size(200, 22);
@@ -269,6 +271,7 @@
             // 
             // dateTimePickerRent1
             // 
+            this.dateTimePickerRent1.Enabled = false;
             this.dateTimePickerRent1.Location = new System.Drawing.Point(12, 58);
             this.dateTimePickerRent1.Name = "dateTimePickerRent1";
             this.dateTimePickerRent1.Size = new System.Drawing.Size(200, 22);

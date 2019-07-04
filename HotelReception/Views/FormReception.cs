@@ -19,7 +19,7 @@ namespace HotelReception
         }
 
         private string patternFirst = "^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ''-']{3,45}$";
-        private string patternLast = "^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ''-']{3,45}$";
+        private string patternLast = "^([a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+|[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+[-][a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ]+){3,10}$";
         private string patternPhone = "(?<!\\w)(\\(?(\\+|00)?48\\)?)?[ -]?\\d{3}[ -]?\\d{3}[ -]?\\d{3}(?!\\w)";
 
         #region Properties
@@ -521,6 +521,7 @@ namespace HotelReception
             {
                 //SelectRooms?.Invoke();
                 selectedIndex = listBoxRooms.SelectedIndex;
+                listBoxRooms.Items.Clear();
 
             }
             if (tabControlReception.SelectedIndex == 2)
@@ -564,7 +565,7 @@ namespace HotelReception
             {
                 if (dateTimePickerRent1.Value.Date.CompareTo(dateTimePickerRent2.Value.Date) == -1)
                 {
-                    if (dateTimePickerRent1.Value.Date >= DateTime.UtcNow)
+                    if (dateTimePickerRent1.Value.Date >= DateTime.UtcNow.Date)
                     {
                         InsertRent?.Invoke(CurrentRent, UserId);
                         UpdateLists();
@@ -655,9 +656,10 @@ namespace HotelReception
             }
             else
             {
-                if (!Regex.IsMatch(textBoxFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxFirstName, "Niedozwolone znaki w imieniu");
-                if (!Regex.IsMatch(textBoxLastName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxLastName, "Niedozwolone znaki w nazwisku");
-                if (!Regex.IsMatch(textBoxPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxPhone, "Niedozwolone znaki w numerze telefonu");
+                if (!Regex.IsMatch(textBoxFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxFirstName, "Nieprawidłowy format imienia");
+                if (!Regex.IsMatch(textBoxLastName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxLastName, "Nieprawidłowy format nazwiska");
+                if (textBoxLastName.Text.Trim().Length > 45) errorProviderLast.SetError(textBoxLastName, "Zbyt wiele znakow");
+                if (!Regex.IsMatch(textBoxPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxPhone, "Nieprawidłowy format numeru telefonu");
             }
         }
 
@@ -675,9 +677,10 @@ namespace HotelReception
             }
             else
             {
-                if (!Regex.IsMatch(textBoxFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxFirstName, "Niedozwolone znaki w imieniu");
-                if (!Regex.IsMatch(textBoxLastName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxLastName, "Niedozwolone znaki w nazwisku");
-                if (!Regex.IsMatch(textBoxPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxPhone, "Niedozwolone znaki w numerze telefonu");
+                if (!Regex.IsMatch(textBoxFirstName.Text.Trim(), patternFirst)) errorProviderFirst.SetError(textBoxFirstName, "Nieprawidłowy format imienia");
+                if (!Regex.IsMatch(textBoxLastName.Text.Trim(), patternLast)) errorProviderLast.SetError(textBoxLastName, "Nieprawidłowy format nazwiska");
+                if (textBoxLastName.Text.Trim().Length>45) errorProviderLast.SetError(textBoxLastName, "Zbyt wiele znakow");
+                if (!Regex.IsMatch(textBoxPhone.Text.Trim(), patternPhone)) errorProviderPhone.SetError(textBoxPhone, "Nieprawidłowy format numeru telefonu");
             }
         }
 
@@ -726,14 +729,10 @@ namespace HotelReception
             if (listBoxRents.SelectedIndex != -1 && listBoxRents.SelectedIndex != selectedIndex)
             {
                 CurrentRent = (Rent)listBoxRents.SelectedItem;
-                numericUpDownRentRoom.Enabled = false;
-                dateTimePickerRent1.Enabled = false;
             }
             else if(listBoxRents.SelectedIndex == selectedIndex)
             {
                 listBoxRents.SelectedIndex = -1;
-                numericUpDownRentRoom.Enabled = true;
-                dateTimePickerRent1.Enabled = true;
                 textBoxClientFirstName.Text= "";
                 textBoxClientSecondName.Text= "";
                 textBoxClientPhone.Text= "";
@@ -766,7 +765,13 @@ namespace HotelReception
             if (listBoxRoomsAdmin.SelectedIndex != -1 && listBoxRoomsAdmin.SelectedIndex != selectedIndex)
             {
                 CurrentRoom = (Room)listBoxRoomsAdmin.SelectedItem;
-            }else if (listBoxRoomsAdmin.SelectedIndex == selectedIndex) listBoxRoomsAdmin.SelectedIndex = -1;
+                numericUpDownIdRoom.Enabled = false;
+            }
+            else if (listBoxRoomsAdmin.SelectedIndex == selectedIndex)
+            {
+                numericUpDownIdRoom.Enabled = true;
+                listBoxRoomsAdmin.SelectedIndex = -1;
+            }
             selectedIndex = listBoxRoomsAdmin.SelectedIndex;
         }
 
