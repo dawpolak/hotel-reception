@@ -82,15 +82,7 @@ namespace HotelReception
         #endregion
 
         #region FormReception
-        //UU   UU WW       WW    AAA      GGGG      AAA
-        //UU   UU WW       WW   AAAAA    GG  GG    AAAAA
-        //UU   UU WW   W   WW  AA   AA  GG        AA   AA
-        //UU   UU  WW WWW WW   AAAAAAA  GG   GG   AAAAAAA
-        // UUUUU     WW WW     AA   AA   GGGGGG   AA   AA
-        //narazie dalem void bo bedzie trzeba to jako instancje klasy Rooms raczej wyslac a jej jeszcze nie ma albo Tuple
 
-        //dodatkowo trzeba zrobic wyzwalacz ktory czy insercie i selectcie bedzie pilnowal wielkosci znakow( imiona i nazwiska z duzej reszta z malej)
-        //myslalem o czyms takim co by usuwalo wynajmy starszy niz miesiac zeby baza nie puchła w nieskonczonosc 
         #region Select
         public List<Room> FilterRooms(int guests, DateTime start, DateTime end, bool balcony)
         {
@@ -187,7 +179,7 @@ namespace HotelReception
         }
         public void DeleteRent(int idroom, DateTime start, DateTime end)
         {
-            int result = database.ExecuteNonQuery($"UPDATE rental SET archived=1 WHERE idroom={idroom} and start='{start.ToString("yyyy-MM-dd")}'");
+            int result = database.ExecuteNonQuery($"DELETE FROM rental WHERE idroom={idroom} and start='{start.ToString("yyyy-MM-dd")}'");
         }
         public void DeleteEmployee(int id)
         {

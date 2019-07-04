@@ -60,7 +60,7 @@ namespace HotelReception
                 currentRent.Idroom = (int)numericUpDownRentRoom.Value;
                 currentRent.Start = dateTimePickerRent1.Value;
                 currentRent.End = dateTimePickerRent2.Value;
-                currentRent.Cost = 0;
+                //currentRent.Cost = 0;
                 currentRent.Worker = UserId.ToString();
                 currentRent.Firstname = textBoxClientFirstName.Text;
                 currentRent.Lastname = textBoxClientSecondName.Text;

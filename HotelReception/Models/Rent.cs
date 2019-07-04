@@ -23,7 +23,7 @@ namespace HotelReception
         {
             this.Start = (DateTime)row["start"];
             this.End = (DateTime)row["end"];
-            //this.Cost = (double)row["cost"];
+            this.Cost = (double)row["cost"];
             this.Idroom = (int)row["idroom"];
             this.Worker = row["idworker"].ToString();
             this.Firstname = row["firstname"].ToString();
