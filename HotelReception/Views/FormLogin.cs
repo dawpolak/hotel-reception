@@ -62,5 +62,10 @@ namespace HotelReception
             
         }
 
+
+        private void textBoxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyValue==13)buttonLogin.PerformClick();
+        }
     }
 }

@@ -117,7 +117,7 @@
             this.tabControlReception.Name = "tabControlReception";
             this.tabControlReception.SelectedIndex = 0;
             this.tabControlReception.Size = new System.Drawing.Size(780, 388);
-            this.tabControlReception.TabIndex = 0;
+            this.tabControlReception.TabIndex = 1;
             this.tabControlReception.SelectedIndexChanged += new System.EventHandler(this.tabControlReception_SelectedIndexChanged);
             // 
             // tabPageRent
@@ -153,7 +153,7 @@
             this.numericUpDownRentRoom.Location = new System.Drawing.Point(120, 11);
             this.numericUpDownRentRoom.Name = "numericUpDownRentRoom";
             this.numericUpDownRentRoom.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDownRentRoom.TabIndex = 19;
+            this.numericUpDownRentRoom.TabIndex = 1;
             // 
             // label3
             // 
@@ -187,28 +187,28 @@
             this.textBoxClientFirstName.Location = new System.Drawing.Point(97, 205);
             this.textBoxClientFirstName.Name = "textBoxClientFirstName";
             this.textBoxClientFirstName.Size = new System.Drawing.Size(174, 22);
-            this.textBoxClientFirstName.TabIndex = 15;
+            this.textBoxClientFirstName.TabIndex = 4;
             // 
             // textBoxClientPhone
             // 
             this.textBoxClientPhone.Location = new System.Drawing.Point(97, 272);
             this.textBoxClientPhone.Name = "textBoxClientPhone";
             this.textBoxClientPhone.Size = new System.Drawing.Size(174, 22);
-            this.textBoxClientPhone.TabIndex = 14;
+            this.textBoxClientPhone.TabIndex = 6;
             // 
             // textBoxClientSecondName
             // 
             this.textBoxClientSecondName.Location = new System.Drawing.Point(97, 236);
             this.textBoxClientSecondName.Name = "textBoxClientSecondName";
             this.textBoxClientSecondName.Size = new System.Drawing.Size(174, 22);
-            this.textBoxClientSecondName.TabIndex = 13;
+            this.textBoxClientSecondName.TabIndex = 5;
             // 
             // buttonDeleteRent
             // 
             this.buttonDeleteRent.Location = new System.Drawing.Point(180, 320);
             this.buttonDeleteRent.Name = "buttonDeleteRent";
             this.buttonDeleteRent.Size = new System.Drawing.Size(75, 23);
-            this.buttonDeleteRent.TabIndex = 12;
+            this.buttonDeleteRent.TabIndex = 9;
             this.buttonDeleteRent.Text = "Usun";
             this.buttonDeleteRent.UseVisualStyleBackColor = true;
             this.buttonDeleteRent.Click += new System.EventHandler(this.buttonDeleteRent_Click);
@@ -218,7 +218,7 @@
             this.buttonEditRent.Location = new System.Drawing.Point(100, 320);
             this.buttonEditRent.Name = "buttonEditRent";
             this.buttonEditRent.Size = new System.Drawing.Size(75, 23);
-            this.buttonEditRent.TabIndex = 11;
+            this.buttonEditRent.TabIndex = 8;
             this.buttonEditRent.Text = "Edytuj";
             this.buttonEditRent.UseVisualStyleBackColor = true;
             this.buttonEditRent.Click += new System.EventHandler(this.buttonEditRent_Click);
@@ -228,7 +228,7 @@
             this.buttonAddRent.Location = new System.Drawing.Point(22, 320);
             this.buttonAddRent.Name = "buttonAddRent";
             this.buttonAddRent.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddRent.TabIndex = 10;
+            this.buttonAddRent.TabIndex = 7;
             this.buttonAddRent.Text = "Dodaj";
             this.buttonAddRent.UseVisualStyleBackColor = true;
             this.buttonAddRent.Click += new System.EventHandler(this.buttonAddRent_Click);
@@ -273,6 +273,7 @@
             this.dateTimePickerRent1.Name = "dateTimePickerRent1";
             this.dateTimePickerRent1.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerRent1.TabIndex = 2;
+            this.dateTimePickerRent1.Value = new System.DateTime(2019, 7, 4, 18, 36, 30, 0);
             // 
             // labelRent1
             // 
@@ -290,7 +291,7 @@
             this.listBoxRents.Location = new System.Drawing.Point(294, 24);
             this.listBoxRents.Name = "listBoxRents";
             this.listBoxRents.Size = new System.Drawing.Size(471, 308);
-            this.listBoxRents.TabIndex = 0;
+            this.listBoxRents.TabIndex = 10;
             this.listBoxRents.Click += new System.EventHandler(this.listBoxRents_Click);
             // 
             // tabPageRooms
@@ -318,7 +319,7 @@
             this.buttonFiltr.Location = new System.Drawing.Point(690, 7);
             this.buttonFiltr.Name = "buttonFiltr";
             this.buttonFiltr.Size = new System.Drawing.Size(63, 51);
-            this.buttonFiltr.TabIndex = 8;
+            this.buttonFiltr.TabIndex = 4;
             this.buttonFiltr.Text = "Filtruj";
             this.buttonFiltr.UseVisualStyleBackColor = true;
             this.buttonFiltr.Click += new System.EventHandler(this.buttonFiltr_Click);
@@ -326,7 +327,7 @@
             // labelRooms8
             // 
             this.labelRooms8.AutoSize = true;
-            this.labelRooms8.Location = new System.Drawing.Point(378, 21);
+            this.labelRooms8.Location = new System.Drawing.Point(377, 21);
             this.labelRooms8.Name = "labelRooms8";
             this.labelRooms8.Size = new System.Drawing.Size(30, 17);
             this.labelRooms8.TabIndex = 7;
@@ -343,17 +344,17 @@
             // 
             // dateTimePickerRooms4
             // 
-            this.dateTimePickerRooms4.Location = new System.Drawing.Point(408, 19);
+            this.dateTimePickerRooms4.Location = new System.Drawing.Point(409, 19);
             this.dateTimePickerRooms4.Name = "dateTimePickerRooms4";
             this.dateTimePickerRooms4.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePickerRooms4.TabIndex = 5;
+            this.dateTimePickerRooms4.TabIndex = 2;
             // 
             // dateTimePickerRooms3
             // 
             this.dateTimePickerRooms3.Location = new System.Drawing.Point(170, 20);
             this.dateTimePickerRooms3.Name = "dateTimePickerRooms3";
             this.dateTimePickerRooms3.Size = new System.Drawing.Size(200, 22);
-            this.dateTimePickerRooms3.TabIndex = 4;
+            this.dateTimePickerRooms3.TabIndex = 1;
             // 
             // labelRooms6
             // 
@@ -370,7 +371,7 @@
             this.checkBoxRooms.Location = new System.Drawing.Point(617, 21);
             this.checkBoxRooms.Name = "checkBoxRooms";
             this.checkBoxRooms.Size = new System.Drawing.Size(67, 21);
-            this.checkBoxRooms.TabIndex = 2;
+            this.checkBoxRooms.TabIndex = 3;
             this.checkBoxRooms.Text = "Taras";
             this.checkBoxRooms.UseVisualStyleBackColor = true;
             // 
@@ -384,7 +385,7 @@
             0});
             this.numericUpDownRooms1.Name = "numericUpDownRooms1";
             this.numericUpDownRooms1.Size = new System.Drawing.Size(59, 22);
-            this.numericUpDownRooms1.TabIndex = 1;
+            this.numericUpDownRooms1.TabIndex = 0;
             // 
             // listBoxRooms
             // 
@@ -393,7 +394,7 @@
             this.listBoxRooms.Location = new System.Drawing.Point(7, 64);
             this.listBoxRooms.Name = "listBoxRooms";
             this.listBoxRooms.Size = new System.Drawing.Size(746, 276);
-            this.listBoxRooms.TabIndex = 0;
+            this.listBoxRooms.TabIndex = 10;
             this.listBoxRooms.DoubleClick += new System.EventHandler(this.listBoxRooms_DoubleClick);
             // 
             // labelUserName
@@ -412,9 +413,9 @@
             this.labelTitle.Font = new System.Drawing.Font("Arial Rounded MT Bold", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(15, 9);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(177, 28);
-            this.labelTitle.TabIndex = 2;
-            this.labelTitle.Text = "Hotel L E G I A";
+            this.labelTitle.Size = new System.Drawing.Size(187, 28);
+            this.labelTitle.TabIndex = 0;
+            this.labelTitle.Text = "Hotel   P I A S T";
             // 
             // listBoxEmployees
             // 
